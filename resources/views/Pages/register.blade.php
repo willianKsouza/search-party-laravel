@@ -5,8 +5,6 @@
             class="max-w-md mx-auto mt-10 bg-gray-800 shadow-lg rounded-lg p-8 space-y-6">
             @csrf
             <h2 class="text-2xl font-bold text-center text-orange-500">Register</h2>
-
-            <!-- Username -->
             <div>
                 <label for="user_name" class="block text-sm font-medium text-orange-500 mb-1">Username</label>
                 <input x-model="form.data.user_name" type="text" id="user_name" name="user_name" placeholder="Your username"
@@ -15,8 +13,6 @@
                         <p x-show="form.errors.user_name" class="text-xs text-red-500 mt-1" x-text="form.errors.user_name"></p>
                     </div>
             </div>
-
-            <!-- Email -->
             <div>
                 <label for="email" class="block text-sm font-medium text-orange-500 mb-1">Email</label>
                 <input x-model="form.data.email" type="email" id="email" name="email" placeholder="you@example.com"
@@ -25,8 +21,6 @@
                         <p x-show="form.errors.email" class="text-xs text-red-500 mt-1" x-text="form.errors.email"></p>
                     </div>
             </div>
-
-            <!-- Password -->
             <div>
                 <label for="password" class="block text-sm font-medium text-orange-500 mb-1">Password</label>
                 <input x-model="form.data.password" type="password" id="password" name="password" placeholder="********"
@@ -35,8 +29,6 @@
                         <p x-show="form.errors.password" class="text-xs text-red-500 mt-1" x-text="form.errors.password"></p>
                     </div>
             </div>
-
-            <!-- Password Confirmation -->
             <div>
                 <label for="password_confirmation" class="block text-sm font-medium text-orange-500 mb-1">Confirm
                     Password</label>
@@ -47,8 +39,6 @@
                             x-text="form.errors.password_confirmation"></p>
                     </div>
             </div>
-
-            <!-- Submit Button -->
             <div>
                 <button x-show="!form.loading" type="submit"
                     class="w-full text-white bg-blue-600  font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200">
