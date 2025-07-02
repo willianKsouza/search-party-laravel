@@ -4,22 +4,18 @@
 <div class="min-h-screen flex items-center justify-center bg-gray-100">
     <div class="max-w-md w-full bg-white p-8 rounded shadow">
         <h2 class="text-2xl font-bold mb-6 text-center">Redefinir Senha</h2>
-        <form method="POST" action="#">
+        <form method="POST">
             @csrf
-
-            <!-- Campo de Email -->
             <div class="mb-4">
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                 <input 
                     id="email" 
                     name="email" 
                     type="email" 
-                    required 
+                    required
                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring focus:border-blue-300"
                 >
             </div>
-
-            <!-- Campo de Nova Senha -->
             <div class="mb-4">
                 <label for="password" class="block text-sm font-medium text-gray-700">Nova Senha</label>
                 <input 
@@ -30,8 +26,6 @@
                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring focus:border-blue-300"
                 >
             </div>
-
-            <!-- Campo de Confirmação de Senha -->
             <div class="mb-4">
                 <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirmar Senha</label>
                 <input 
@@ -42,15 +36,11 @@
                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring focus:border-blue-300"
                 >
             </div>
-
-            <!-- Campo Oculto com Token -->
             <input 
                 type="hidden" 
                 name="token" 
                 value="{{ $token }}"
             >
-
-            <!-- Botão de Envio -->
             <div>
                 <button 
                     type="submit" 

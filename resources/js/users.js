@@ -16,6 +16,7 @@ export default () => ({
             password_confirmation: null,
             bio: null,
         },
+        token:'',
         warning: "",
         loading: false,
         showModal: false,
@@ -102,16 +103,19 @@ export default () => ({
             this.form.loading = false;
         }
     },
-    async forgotPassword(){
+    async sendForgotPassword(){
         this.form.loading = true;
-        const email = this.form.email
+        console.log(email);
         try {
-            const { data } = await axios.post("/forgot-password", { email });
+            const { data } = await axios.post("/forgot-password", { 
+                email: this.form.data.email,
+                token: this.form.token
+
+            });
             console.log(data);
             
         } catch (error) {
             console.log(error);
-            
             const errors = error.response.data.errors;
             this.form.errors = {};
             for (const field in errors) {
@@ -123,5 +127,7 @@ export default () => ({
             }, 5000);
             this.form.loading = false;
         }
-    }
+    },
+
+
 });

@@ -55,6 +55,10 @@ Route::controller(UserAuthController::class)->group(function () {
     Route::get('/reset-password/{token}', 'showResetPasswordForm')
         ->name('password.reset')
         ->middleware('guest');
+
+    Route::post('/reset-password', 'resetPassword')
+        ->name('password.update')
+        ->middleware('guest');
 });
 
 

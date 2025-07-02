@@ -7,12 +7,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterUserRequest;
 use App\Http\Requests\Auth\UpdatePasswordRequest;
+use Illuminate\Support\Str;
 use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 
 class UserAuthController extends Controller
@@ -93,7 +97,6 @@ class UserAuthController extends Controller
         return back()->with('status', 'verification-link-sent');
     }
 
-
     public function showChangePasswordForm(Request $request)
     {
         return view('Pages.auth.forgot-password');
@@ -110,9 +113,38 @@ class UserAuthController extends Controller
             : response()->json(['email' => __($status)]);
     }
 
-    public function showResetPasswordForm(string $token)
+    public function showResetPasswordForm(Request $request, string $token)
     {
         $token = $token;
         return view('auth.reset-password', compact('token'));
+    }
+
+
+    public function resetPassword(Request $request)
+    {
+
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:4|confirmed',
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+
+                event(new PasswordReset($user));
+            }
+        );
+
+        return $status === Password::PASSWORD_RESET
+            ? response()->json(['redirect' => route('login'), 'status' => __($status)])
+            : response()->json(['errors' => ['email' => [__($status)]]], 422);
     }
 }
