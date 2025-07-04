@@ -27,20 +27,21 @@ class RegisterUserRequest extends FormRequest
             'password' => 'required|string|min:4|confirmed',
         ];
     }
+
     public function messages(): array
-{
-    return [
-        'user_name.required' => 'O nome de usuário é obrigatório.',
-        'user_name.unique'   => 'Este nome de usuário já está em uso. Tente outro.',
-        'user_name.max'      => 'O nome de usuário deve ter no máximo 10 caracteres.',
+    {
+        return [
+            'user_name.required' => 'O nome de usuário é obrigatório.',
+            'user_name.unique' => 'Este nome de usuário já está em uso. Tente outro.',
+            'user_name.max' => 'O nome de usuário deve ter no máximo 10 caracteres.',
 
-        'email.required' => 'O e-mail é obrigatório.',
-        'email.email'    => 'Informe um e-mail válido.',
-        'email.unique'   => 'Este e-mail já está cadastrado.',
+            'email.required' => 'O e-mail é obrigatório.',
+            'email.email' => 'Informe um e-mail válido.',
+            'email.unique' => 'Este e-mail já está cadastrado.',
 
-        'password.required'  => 'A senha é obrigatória.',
-        'password.min'       => 'A senha deve ter no mínimo 4 caracteres.',
-        'password.confirmed' => 'A confirmação da senha não corresponde.',
-    ];
-}
+            'password.required' => 'A senha é obrigatória.',
+            'password.min' => 'A senha deve ter no mínimo 4 caracteres.',
+            'password.confirmed' => 'A confirmação da senha não corresponde.',
+        ];
+    }
 }

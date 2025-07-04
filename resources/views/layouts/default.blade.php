@@ -7,7 +7,7 @@
     <title>Laravel</title>
     @vite(['resources/css/app.css'])
 </head>
-<body class="bg-zinc-500">
+<body class="bg-zinc-500 relative">
     <x-themes.header />
     @yield('content')
     @vite(['resources/js/app.js'])

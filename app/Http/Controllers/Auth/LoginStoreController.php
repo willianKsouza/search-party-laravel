@@ -16,7 +16,7 @@ class LoginStoreController extends Controller
         $validated = $request->validated();
 
         $remember = $request->boolean('remember');
-        
+
         if (Auth::attempt($validated, $remember)) {
             return redirect()->route('pages.home');
         } else {

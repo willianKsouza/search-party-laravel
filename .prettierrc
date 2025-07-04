@@ -1,0 +1,5 @@
+{
+  "plugins": ["prettier-plugin-blade"],
+  "htmlWhitespaceSensitivity": "ignore",
+  "bladeWrapAttributes": "force-expand-multiline"
+}

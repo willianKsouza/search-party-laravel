@@ -16,6 +16,7 @@ class LoginFormController extends Controller
         if (Auth::check()) {
             return redirect()->route('pages.home');
         }
+
         return view('pages.login');
     }
 }

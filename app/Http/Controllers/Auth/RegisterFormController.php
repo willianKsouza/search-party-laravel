@@ -12,6 +12,6 @@ class RegisterFormController extends Controller
      */
     public function __invoke(Request $request)
     {
-          return view('pages.register');
+        return view('pages.register');
     }
 }

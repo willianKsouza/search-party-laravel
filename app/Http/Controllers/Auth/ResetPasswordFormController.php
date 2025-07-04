@@ -13,6 +13,7 @@ class ResetPasswordFormController extends Controller
     public function __invoke(Request $request, string $token)
     {
         $token = $token;
+
         return view('pages.auth.reset-password', compact('token'));
     }
 }

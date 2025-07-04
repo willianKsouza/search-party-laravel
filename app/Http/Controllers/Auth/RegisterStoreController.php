@@ -12,7 +12,6 @@ class RegisterStoreController extends Controller
     /**
      * Handle the incoming request.
      */
-
     public function __invoke(RegisterUserRequest $request)
     {
         $validated = $request->validated();
@@ -22,6 +21,7 @@ class RegisterStoreController extends Controller
         if ($user) {
             event(new Registered($user));
         }
+
         return redirect()->route('pages.home');
     }
 }

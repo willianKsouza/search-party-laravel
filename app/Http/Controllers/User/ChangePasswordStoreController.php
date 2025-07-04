@@ -28,6 +28,7 @@ class ChangePasswordStoreController extends Controller
             ]);
 
             $user->save();
+
             return redirect()->route('pages.profile')->with('status', 'Senha alterada com sucesso.');
         }
 

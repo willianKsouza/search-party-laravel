@@ -22,7 +22,7 @@ class UpdatePasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|string|email'
+            'email' => 'required|string|email',
         ];
     }
 
@@ -30,7 +30,7 @@ class UpdatePasswordRequest extends FormRequest
     {
         return [
             'email.required' => 'O e-mail é obrigatório.',
-            'email.email'    => 'Informe um e-mail válido.',
+            'email.email' => 'Informe um e-mail válido.',
         ];
     }
 }
