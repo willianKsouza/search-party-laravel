@@ -1,13 +1,27 @@
 <?php
 
-use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\User\UserProfileController;
+use App\Http\Controllers\Auth\ChangePasswordFormController;
+use App\Http\Controllers\Auth\ForgotPasswordStoreController;
+use App\Http\Controllers\Auth\LoginFormController;
+use App\Http\Controllers\Auth\LoginStoreController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterFormController;
+use App\Http\Controllers\Auth\RegisterStoreController;
+use App\Http\Controllers\Auth\ResetPasswordFormController;
+use App\Http\Controllers\Auth\ResetPasswordStoreController;
+use App\Http\Controllers\Auth\VerificationSendEmailController;
+use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\VerifyEmailNoticePageController;
+use App\Http\Controllers\User\ChangePasswordStoreController;
 use App\Http\Controllers\User\UserPostController;
+use App\Http\Controllers\User\UserProfilePageController;
+use App\Http\Controllers\User\UserProfileUpdateController;
 use App\Mail\ConfirmationAccountMail;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Route;
+
 
 
 Route::get('/mailable', function () {
@@ -16,65 +30,75 @@ Route::get('/mailable', function () {
     return new ConfirmationAccountMail($user);
 });
 
-Route::controller(UserAuthController::class)->group(function () {
-    Route::get('/register', 'showRegisterForm')
-        ->name('auth.register.show');
+Route::get('/', HomeController::class)
+    ->middleware('auth', 'verified')
+    ->name('pages.home');
 
-    Route::post('/register', 'storeRegister')
-        ->name('auth.register.store');
+// Register Routes
+Route::get('/register', RegisterFormController::class)
+    ->name('auth.register.show');
 
-    Route::get('/login', 'showLoginForm')
-        ->name('login');
+Route::post('/register', RegisterStoreController::class)
+    ->name('auth.register.store');
+// Fim Register Routes
 
-    Route::post('/login', 'storeLogin')
-        ->name('auth.login.store');
+// Email Verification Routes
+Route::get('/email/verify', VerifyEmailNoticePageController::class)
+    ->name('verification.notice')
+    ->middleware('auth');
 
-    Route::get('/logout', 'logout')
-        ->name('auth.logout');
+Route::get('/email/verify/{id}/{hash}', VerifyEmailController::class)
+    ->name('verification.verify')
+    ->middleware(['auth', 'signed']);
 
-    Route::get('/email/verify', 'verifyEmailNotice')
-        ->name('verification.notice')
-        ->middleware('auth');
+Route::post('/email/verification-notification', VerificationSendEmailController::class)
+    ->name('verification.send')
+    ->middleware(['auth', 'throttle:6,1']);
+// FIM Email Verification Routes
 
-    Route::get('/email/verify/{id}/{hash}', 'verifyEmail')
-        ->name('verification.verify')
-        ->middleware(['auth', 'signed']);
+// Login Routes
+Route::get('/login', LoginFormController::class)
+    ->name('login');
 
-    Route::post('/email/verification-notification', 'resendVerificationEmail')
-        ->name('verification.send')
-        ->middleware(['auth', 'throttle:6,1']);
+Route::post('/login', LoginStoreController::class)
+    ->name('auth.login.store');
+// Fim Login Routes
 
-    Route::get('/forgot-password', 'showChangePasswordForm')
-        ->name('password.request')
-        ->middleware('guest');
+Route::get('/logout', LogoutController::class)
+    ->name('auth.logout');
 
-    Route::post('/forgot-password', 'forgotPassword')
-        ->name('password.email')
-        ->middleware('guest');
+// Change Password Routes
+Route::get('/forgot-password', ChangePasswordFormController::class)
+    ->name('password.request')
+    ->middleware('guest');
 
-    Route::get('/reset-password/{token}', 'showResetPasswordForm')
-        ->name('password.reset')
-        ->middleware('guest');
+Route::post('/forgot-password', ForgotPasswordStoreController::class)
+    ->name('password.email')
+    ->middleware('guest');
 
-    Route::post('/reset-password', 'resetPassword')
-        ->name('password.update')
-        ->middleware('guest');
-});
+Route::get('/reset-password/{token}', ResetPasswordFormController::class)
+    ->name('password.reset')
+    ->middleware('guest');
 
+Route::post('/reset-password', ResetPasswordStoreController::class)
+    ->name('password.update')
+    ->middleware('guest');
 
+Route::post('/change-password', ChangePasswordStoreController::class)
+    ->name('password.change.store')
+    ->middleware('auth');
+// FIM Change Password Routes
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', HomeController::class)->name('pages.home');
+// User Profile Routes
+Route::get('/user/profile', UserProfilePageController::class)
+    ->middleware('auth', 'verified')
+    ->name('pages.profile');
 
-    Route::controller(UserProfileController::class)->group(function () {
-        Route::get('/user/profile', 'show')
-            ->name('pages.profile');
+Route::put('/user/update/{id}', UserProfileUpdateController::class)
+    ->middleware('auth', 'verified')
+    ->name('user.update');
+// FIM User Profile  Routes
 
-        Route::put('/user/update/{id}', 'update')
-            ->name('user.update');
-    });
-
-    Route::controller(UserPostController::class)->group(function () {
-        Route::get('/posts', 'show')->name('pages.posts');
-    });
+Route::controller(UserPostController::class)->group(function () {
+    Route::get('/posts', 'show')->name('pages.posts')->middleware('auth', 'verified');
 });

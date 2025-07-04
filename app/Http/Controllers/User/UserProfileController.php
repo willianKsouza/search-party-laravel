@@ -13,24 +13,12 @@ class UserProfileController extends Controller
 {
     public function show(Request $request)
     {
-        $user = $request->user();
 
-        return view('pages.profile', compact('user'));
     }
 
-    public function update(UpdateUserRequest $request, string $id)
+    public function update()
     {
-        $validated = $request->validated();
 
-        $user = User::findOrFail($id);
-
-        $user->user_name = $validated['user_name'];
-
-        $user->email = $validated['email'];
-
-        $user->save();
-
-        return response()->noContent();
     }
 
 

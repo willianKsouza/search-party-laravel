@@ -13,7 +13,7 @@ class UserPostController extends Controller
     public function show(Request $request)
     {
         // Logic to retrieve and display user posts
-        return view('pages.post');
+        
     }
   
 }
