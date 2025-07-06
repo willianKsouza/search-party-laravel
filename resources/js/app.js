@@ -6,12 +6,13 @@ import post from './alpine/post'
 //  * allow your team to quickly build robust real-time web applications.
 //  */
 
-// import './laravel-echo/echo';
+import './laravel-echo/echo';
 
 Alpine.data('post', post)
 window.Alpine = Alpine
  
 Alpine.start()
+
 
 
 

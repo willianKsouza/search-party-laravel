@@ -4,32 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class Post extends Model
+class Category extends Model
 {
-    use SoftDeletes;
+    public $timestamps = false;
 
     protected $fillable = [
-        'title',
-        'body',
+        'name',
         'slug'
     ];
 
-    public function users()
+    public function posts()
     {
-        $this->belongsTo(User::class);
-    }
-
-    public function messages()
-    {
-        $this->hasMany(Message::class);
-    }
-
-    public function categories()
-    {
-        $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Post::class);
     }
 
     protected function slug(): Attribute

@@ -1,8 +1,24 @@
 @extends("layouts.default")
 @section("content")
-    <section>
+    <section x-data="post()">
         <x-container>
-            <section class=" mt-8 grid grid-cols-12 gap-4">
+            @if (session("status"))
+                <div class="text-xs text-green-500 mt-1">
+                    {{ session("status") }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <section class="mt-8 grid grid-cols-12 gap-4">
                 <form
                     action=""
                     method="get"
@@ -36,6 +52,7 @@
                 </form>
                 <div class="col-span-12 md:col-span-2 flex justify-end">
                     <button
+                        x-on:click="toggleNewPostModal"
                         type="button"
                         class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors duration-200 flex justify-center items-center gap-2"
                     >
@@ -58,8 +75,7 @@
             </section>
             <section>
                 <div
-                     x-data="post()"
-                    class=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8"
+                    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8"
                 >
                     @foreach (range(1, 9) as $post)
                         <div
@@ -82,7 +98,7 @@
                             </p>
                             <div class="mt-4 flex justify-between">
                                 <button
-                                    x-on:click="openModal"
+                                    x-on:click="togglePostModal"
                                     class="w-[100px] py-1 border border-amber-700 hover:bg-amber-900 rounded-md text-amber-700"
                                 >
                                     Ver mais
@@ -95,7 +111,9 @@
                             </div>
                         </div>
                     @endforeach
+
                     <x-modals.more-information-post-modal />
+                    <x-modals.new-post-modal />
                 </div>
             </section>
         </x-container>

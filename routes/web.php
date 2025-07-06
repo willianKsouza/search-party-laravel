@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\VerificationSendEmailController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\VerifyEmailNoticePageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Post\PostStoreController;
 use App\Http\Controllers\User\ChangePasswordStoreController;
 use App\Http\Controllers\User\UserPostController;
 use App\Http\Controllers\User\UserProfilePageController;
@@ -97,6 +98,10 @@ Route::put('/user/update/{id}', UserProfileUpdateController::class)
     ->name('user.update');
 // FIM User Profile  Routes
 
-Route::controller(UserPostController::class)->group(function () {
-    Route::get('/posts', 'show')->name('pages.posts')->middleware('auth', 'verified');
-});
+
+ Route::post('/user/posts', PostStoreController::class)
+    ->middleware('auth', 'verified')
+    ->name('store.posts');
+// Route::controller(UserPostController::class)->group(function () {
+//     Route::get('/posts', 'show')->name('pages.posts')->middleware('auth', 'verified');
+// });

@@ -1,8 +1,8 @@
 <div
     x-cloak
-    x-show="post.showModal"
+    x-show="post.showPostModal"
     x-transition
-    x-on:click="closeModal"
+    x-on:click="togglePostModal"
     class="absolute inset-0 flex items-center justify-center h-screen bg-black/60"
 >
     <div
@@ -46,7 +46,7 @@
             </button>
         </div>
         <button
-            x-on:click="closeModal"
+            x-on:click="togglePostModal"
             class="mt-4 w-[100px] py-1 border border-red-700 hover:bg-red-900 rounded-md text-white"
         >
             Fechar

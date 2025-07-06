@@ -1,12 +1,13 @@
 // import axios from "../plugins/axios";
 export default () => ({
     post: {
-        showModal: false,
+        showNewPostModal: false,
+        showPostModal: false,
     },
-    openModal(){
-        this.post.showModal = true
+    togglePostModal() {
+        this.post.showPostModal = !this.post.showPostModal;
     },
-    closeModal(){
-        this.post.showModal = false
-    }
+    toggleNewPostModal() {
+        this.post.showNewPostModal = !this.post.showNewPostModal;
+    },
 });
