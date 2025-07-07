@@ -11,7 +11,7 @@
         class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-[90%] md:w-[70%] max-h-[90%] flex flex-col p-6 overflow-y-auto"
     >
         <h2 class="text-xl font-semibold mb-4">Novo Post</h2>
-        <form method="POST" action="{{ route('store.posts') }}" class="space-y-4">
+        <form class="space-y-4">
             @csrf
             <div>
                 <label
@@ -21,7 +21,7 @@
                     Título
                 </label>
                 <input
-                value="{{ old('title') }}"
+                    x-model="post.data.title"
                     type="text"
                     id="title"
                     name="title"
@@ -29,6 +29,9 @@
                     class="w-full px-4 py-2 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-900 text-gray-100"
                     required
                 />
+                <div>
+                    <p x-show="post.errors.title" x-text="post.errors.title"></p>
+                </div>
             </div>
             <div>
                 <label
@@ -38,7 +41,7 @@
                     Descrição
                 </label>
                 <textarea
-                    value="{{ old('body') }}"
+                    x-model="post.data.body"
                     id="body"
                     name="body"
                     placeholder="Digite a descrição do post"
@@ -57,6 +60,7 @@
                             class="flex items-center space-x-2 bg-gray-700 px-3 py-2 rounded"
                         >
                             <input
+                                x-model="post.data.categories"
                                 type="checkbox"
                                 name="categories[]"
                                 value="{{ $category->id }}"
@@ -69,8 +73,9 @@
                     @endforeach
                 </div>
             </div>
-            <div class="flex justify-end space-x-2 mt-4">
+            <div class="flex justify-end gap-x-2 mt-4">
                 <button
+                    x-on:click.prevent="createPost()"
                     type="submit"
                     class="px-4 py-2 border border-orange-700 hover:bg-orange-900 rounded text-orange-500"
                 >

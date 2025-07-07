@@ -14,22 +14,23 @@ class Post extends Model
     protected $fillable = [
         'title',
         'body',
-        'slug'
+        'slug',
+        'user_id'
     ];
 
     public function users()
     {
-        $this->belongsTo(User::class);
+       return $this->belongsTo(User::class);
     }
 
     public function messages()
     {
-        $this->hasMany(Message::class);
+       return $this->hasMany(Message::class);
     }
 
     public function categories()
     {
-        $this->belongsToMany(Category::class);
+       return $this->belongsToMany(Category::class, 'post_categories');
     }
 
     protected function slug(): Attribute

@@ -1,7 +1,7 @@
 @extends('layouts.unauthenticated')
 @section('content')
     <x-container>
-        <form x-data="users" action="{{ route('auth.register.store') }}" method="POST"
+        <form action="{{ route('auth.register.store') }}" method="POST"
             class="max-w-md mx-auto mt-10 bg-gray-800 shadow-lg rounded-lg p-8 space-y-6">
             @csrf
             <h2 class="text-2xl font-bold text-center text-orange-500">Register</h2>
@@ -43,6 +43,5 @@
                 </button> --}}
             </div>
         </form>
-
     </x-container>
 @endsection

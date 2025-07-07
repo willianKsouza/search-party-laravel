@@ -8,16 +8,6 @@
                 </div>
             @endif
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
             <section class="mt-8 grid grid-cols-12 gap-4">
                 <form
                     action=""
@@ -77,7 +67,7 @@
                 <div
                     class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8"
                 >
-                    @foreach (range(1, 9) as $post)
+                    @foreach ($posts as $key => $post)
                         <div
                             class="relative bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4"
                         >
@@ -85,16 +75,16 @@
                                 <h2
                                     class="text-lg font-semibold text-gray-900 dark:text-orange-500"
                                 >
-                                    buscando grupo para Baldurs Gate
+                                    {{ $post->title }}
                                 </h2>
                                 <span
                                     class="absolute top-1 right-1 flex justify-center items-center rounded-full bg-red-700 text-white size-6 rotate-12"
                                 >
-                                    {{ $post }}
+                                    {{ $key }}
                                 </span>
                             </div>
                             <p class="text-gray-700 dark:text-gray-300 mt-2">
-                                preciso montar um grupo espe...
+                                {{ $post->body }}
                             </p>
                             <div class="mt-4 flex justify-between">
                                 <button
@@ -103,11 +93,13 @@
                                 >
                                     Ver mais
                                 </button>
-                                <button
-                                    class="w-[100px] py-1 border border-red-700 hover:bg-red-900 rounded-md text-white"
-                                >
-                                    excluir
-                                </button>
+                                @can("view", $post)
+                                    <button
+                                        class="w-[100px] py-1 border border-red-700 hover:bg-red-900 rounded-md text-white"
+                                    >
+                                        excluir
+                                    </button>
+                                @endcan
                             </div>
                         </div>
                     @endforeach

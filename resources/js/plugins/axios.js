@@ -4,6 +4,7 @@ let csrf = document
     .querySelector('meta[name="csrf-token"]')
     .getAttribute("content");
 
+axios.defaults.baseURL = import.meta.env.APP_URL;
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 axios.defaults.headers.common["X-CSRF-TOKEN"] = csrf;
 

@@ -12,8 +12,8 @@
         <x-container>
             <nav class="flex justify-center items-center py-4">
                 <a href="{{ route('pages.home') }}" class="flex items-center gap-2">
-                    <img src="{{ asset('img/space-invader-alien-black.png') }}" alt="Logo" class="size-[40px]">
-                    <span class="text-orange-500 font-bold text-lg">Search Party</span>
+                    <img src="{{ asset('img/logo.png') }}" alt="Logo" class="size-[40px] w-full">
+                    {{-- <span class="text-orange-500 font-bold text-lg">Search Party</span> --}}
                 </a>
             </nav>
         </x-container>

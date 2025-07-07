@@ -13,6 +13,8 @@ use App\Http\Controllers\Auth\VerificationSendEmailController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\VerifyEmailNoticePageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Post\PostDeleteController;
+use App\Http\Controllers\Post\PostPageController;
 use App\Http\Controllers\Post\PostStoreController;
 use App\Http\Controllers\User\ChangePasswordStoreController;
 use App\Http\Controllers\User\UserPostController;
@@ -98,10 +100,15 @@ Route::put('/user/update/{id}', UserProfileUpdateController::class)
     ->name('user.update');
 // FIM User Profile  Routes
 
-
- Route::post('/user/posts', PostStoreController::class)
+// User Post Routes
+ Route::get('/user/post', PostPageController::class)
     ->middleware('auth', 'verified')
-    ->name('store.posts');
-// Route::controller(UserPostController::class)->group(function () {
-//     Route::get('/posts', 'show')->name('pages.posts')->middleware('auth', 'verified');
-// });
+    ->name('pages.post');
+
+ Route::post('/user/post', PostStoreController::class)
+    ->middleware('auth', 'verified');
+
+ Route::delete('/user/post/{id}', PostDeleteController::class)
+    ->name('post.delete')
+    ->middleware('auth', 'verified');
+// FIM User Post  Routes
