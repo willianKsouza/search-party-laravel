@@ -13,8 +13,10 @@ use App\Http\Controllers\Auth\VerificationSendEmailController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\VerifyEmailNoticePageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Message\MessageStoreController;
 use App\Http\Controllers\Post\PostDeleteController;
 use App\Http\Controllers\Post\PostPageController;
+use App\Http\Controllers\Post\PostShowController;
 use App\Http\Controllers\Post\PostStoreController;
 use App\Http\Controllers\User\ChangePasswordStoreController;
 use App\Http\Controllers\User\UserPostController;
@@ -105,6 +107,9 @@ Route::put('/user/update/{id}', UserProfileUpdateController::class)
     ->middleware('auth', 'verified')
     ->name('pages.post');
 
+ Route::get('/user/post/{id}', PostShowController::class)
+    ->middleware('auth', 'verified');
+
  Route::post('/user/post', PostStoreController::class)
     ->middleware('auth', 'verified');
 
@@ -112,3 +117,8 @@ Route::put('/user/update/{id}', UserProfileUpdateController::class)
     ->name('post.delete')
     ->middleware('auth', 'verified');
 // FIM User Post  Routes
+
+// Message Routes
+    Route::post('/message/send/{id}', MessageStoreController::class)
+    ->middleware('auth', 'verified');
+// FIM Message Routes

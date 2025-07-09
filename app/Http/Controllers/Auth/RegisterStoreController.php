@@ -15,7 +15,7 @@ class RegisterStoreController extends Controller
     public function __invoke(RegisterUserRequest $request)
     {
         $validated = $request->validated();
-
+        
         $user = User::create($validated);
 
         if ($user) {

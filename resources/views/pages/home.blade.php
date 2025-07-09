@@ -14,9 +14,10 @@
                     method="get"
                     class="col-span-12 md:col-span-10 flex items-center gap-4"
                 >
+                
                     <input
                         type="text"
-                        name="q"
+                        name="search"
                         placeholder="Buscar..."
                         class="flex-1 px-4 py-3 border-2 border-orange-300 rounded-lg focus:outline-none focus:border-orange-500 transition-colors duration-200"
                     />
@@ -88,17 +89,25 @@
                             </p>
                             <div class="mt-4 flex justify-between">
                                 <button
-                                    x-on:click="togglePostModal"
+                                    x-on:click="openPostModal({{ $post->id }})"
                                     class="w-[100px] py-1 border border-amber-700 hover:bg-amber-900 rounded-md text-amber-700"
                                 >
                                     Ver mais
                                 </button>
                                 @can("view", $post)
-                                    <button
-                                        class="w-[100px] py-1 border border-red-700 hover:bg-red-900 rounded-md text-white"
+                                    <form
+                                        method="POST"
+                                        action="{{ route("post.delete", ["id" => $post->id]) }}"
                                     >
-                                        excluir
-                                    </button>
+                                        @method("DELETE")
+                                        @csrf
+                                        <button
+                                            type="submit"
+                                            class="w-[100px] py-1 border border-red-700 hover:bg-red-900 rounded-md text-white"
+                                        >
+                                            excluir
+                                        </button>
+                                    </form>
                                 @endcan
                             </div>
                         </div>

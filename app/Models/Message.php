@@ -10,7 +10,9 @@ class Message extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'content'
+        'message',
+        'user_id',
+        'post_id'
     ];
     public function user()
     {

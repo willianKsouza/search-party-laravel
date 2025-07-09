@@ -24,7 +24,7 @@
                             </span>
                         </div>
                         <p class="text-gray-700 dark:text-gray-300 mt-2">
-                             {{ $post->body }}
+                            {{ $post->body }}
                         </p>
                         <div class="mt-4 flex justify-between">
                             <button
@@ -33,15 +33,18 @@
                             >
                                 Ver mais
                             </button>
-                            <form action="POST" action="{{ route('post.delete', ['id' => $post->id]) }}">
-                                @method('delete')
+                            <form
+                                method="POST"
+                                action="{{ route("post.delete", ["id" => $post->id]) }}"
+                            >
+                                @method("DELETE")
                                 @csrf
                                 <button
-                                type="submit"
-                                class="w-[100px] py-1 border border-red-700 hover:bg-red-900 rounded-md text-white"
-                            >
-                                excluir
-                            </button>
+                                    type="submit"
+                                    class="w-[100px] py-1 border border-red-700 hover:bg-red-900 rounded-md text-white"
+                                >
+                                    excluir
+                                </button>
                             </form>
                         </div>
                     </div>

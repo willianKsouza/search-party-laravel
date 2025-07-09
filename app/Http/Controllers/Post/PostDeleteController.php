@@ -14,9 +14,8 @@ class PostDeleteController extends Controller
     public function __invoke(Request $request, string $id)
     {
         $post = Post::find($id)->delete();
-        
         return $post
-            ?  back()->with('status', 'post deletado com sucesso.')
+            ? back()->with('status', 'post deletado com sucesso.')
             : back()->with('status', 'ocorreu um erro.');
     }
 }

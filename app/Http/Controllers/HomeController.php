@@ -11,6 +11,7 @@ class HomeController extends Controller
     
     public function __invoke(Request $request)
     {
+        
         $categories = Category::all();
         $posts = Post::all();
         return view('pages.home', compact('categories','posts'));

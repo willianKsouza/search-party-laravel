@@ -8,6 +8,8 @@ axios.defaults.baseURL = import.meta.env.APP_URL;
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 axios.defaults.headers.common["X-CSRF-TOKEN"] = csrf;
 
+
+
 axios.interceptors.response.use(
     function (response) {
         return response;
