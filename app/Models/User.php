@@ -29,7 +29,6 @@ class User extends Authenticatable implements CanResetPassword, MustVerifyEmail
         'email',
         'password',
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -38,6 +37,7 @@ class User extends Authenticatable implements CanResetPassword, MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+        'pivot'
     ];
 
     /**
@@ -56,5 +56,10 @@ class User extends Authenticatable implements CanResetPassword, MustVerifyEmail
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+        public function messages()
+    {
+        return $this->hasMany(Message::class);
     }
 }

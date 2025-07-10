@@ -18,19 +18,14 @@ class Post extends Model
         'user_id'
     ];
 
-    public function users()
-    {
-       return $this->belongsTo(User::class);
-    }
-
     public function messages()
     {
-       return $this->hasMany(Message::class);
+        return $this->hasMany(Message::class);
     }
 
     public function categories()
     {
-       return $this->belongsToMany(Category::class, 'post_categories');
+        return $this->belongsToMany(Category::class, 'post_categories');
     }
 
     protected function slug(): Attribute
@@ -39,5 +34,10 @@ class Post extends Model
             get: fn(String $value) => $value,
             set: fn(String $value) => Str::slug($value),
         );
+    }
+
+    public function participants()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }

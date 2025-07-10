@@ -25,6 +25,10 @@ class MessageStoreController extends Controller
             'post_id' => $id
         ]);
 
+        $post = $message->post;
+
+        $post->participants()->syncWithoutDetaching([Auth::user()->id]);
+        
         broadcast(new MessageSentByUserEvent($message))->toOthers();
         
         return response()->noContent();

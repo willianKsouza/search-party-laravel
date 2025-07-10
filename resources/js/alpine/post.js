@@ -2,11 +2,31 @@ import axios from "../plugins/axios";
 export default () => ({
     post: {
         data: {
-            title: "",
-            body: "",
+            title: "Procuro grupo para Baldurs Gate",
+            body: "quero um grupo bem habilidoso e perspicaz preciso de gente de level alto para enfrentar um boss",
             categories: [],
             message: "",
-            messages: [],
+            participants:[],
+            messages: [
+                {
+                    message:
+                        "Estamos usando React com TypeScript e Tailwind CSS.",
+                    user_id: 2,
+                    created_at: new Date()
+                        .toISOString()
+                        .replace("T", " ")
+                        .replace("F", ""),
+                },
+                {
+                    message:
+                        "Que legal! Qual tecnologia vocês estão usando?",
+                    user_id: 1,
+                    created_at: new Date()
+                        .toISOString()
+                        .replace("T", " ")
+                        .replace("Z", ""),
+                },
+            ],
         },
         errors: {
             title: "",
@@ -17,7 +37,7 @@ export default () => ({
         postId: "",
         warning: "",
         showNewPostModal: false,
-        showPostModal: true,
+        showPostModal: false,
     },
     async openPostModal(id) {
         try {
@@ -27,7 +47,8 @@ export default () => ({
             this.post.data.body = post[0].body;
             this.post.postId = post[0].id;
             this.post.data.messages = post[0].messages;
-            console.log(this.post.data.messages);
+            this.post.data.participants = post[0].participants;
+            this.post.data.categories = post[0].categories;
         } catch (error) {
             this.post.warning =
                 "Ocorreu um erro ao carregar o post, tente novamente";
@@ -66,8 +87,8 @@ export default () => ({
         }
     },
     async sendMessage(userId) {
-        if (this.post.data.message.trim() === '') {
-            return
+        if (this.post.data.message.trim() === "") {
+            return;
         }
         const id = this.post.postId;
         try {
@@ -75,6 +96,7 @@ export default () => ({
                 message: this.post.data.message,
                 post_id: this.post.postId,
             });
+            this.post.data.participants.push()
         } catch (error) {
             const errors = error.response.data.errors;
             this.post.errors = {};
@@ -90,7 +112,7 @@ export default () => ({
                     .replace("T", " ")
                     .replace("Z", ""),
             });
-
+            
             this.post.data.message = "";
         }
     },
@@ -98,8 +120,6 @@ export default () => ({
         await Echo.private(`chat.post.${postId}`).listen(
             ".user.message.sent",
             (e) => {
-                console.log(e);
-
                 this.post.data.messages.push(e.message);
             },
         );

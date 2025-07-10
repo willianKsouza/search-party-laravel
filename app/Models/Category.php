@@ -14,7 +14,7 @@ class Category extends Model
         'name',
         'slug'
     ];
-
+    protected $hidden = ['pivot'];
     public function posts()
     {
         return $this->belongsToMany(Post::class);

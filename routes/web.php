@@ -15,11 +15,11 @@ use App\Http\Controllers\Auth\VerifyEmailNoticePageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Message\MessageStoreController;
 use App\Http\Controllers\Post\PostDeleteController;
+use App\Http\Controllers\Post\PostIndexController;
 use App\Http\Controllers\Post\PostPageController;
 use App\Http\Controllers\Post\PostShowController;
 use App\Http\Controllers\Post\PostStoreController;
 use App\Http\Controllers\User\ChangePasswordStoreController;
-use App\Http\Controllers\User\UserPostController;
 use App\Http\Controllers\User\UserProfilePageController;
 use App\Http\Controllers\User\UserProfileUpdateController;
 use App\Mail\ConfirmationAccountMail;
@@ -107,7 +107,7 @@ Route::put('/user/update/{id}', UserProfileUpdateController::class)
     ->middleware('auth', 'verified')
     ->name('pages.post');
 
- Route::get('/user/post/{id}', PostShowController::class)
+ Route::get('/user/post/{id}', PostIndexController::class)
     ->middleware('auth', 'verified');
 
  Route::post('/user/post', PostStoreController::class)

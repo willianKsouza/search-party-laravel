@@ -8,9 +8,12 @@
     <title>{{ config('app.name') }}</title>
     @vite(['resources/css/app.css'])
 </head>
-<body class="bg-zinc-500 relative">
+<body class="bg-[#1b2a36] relative ">
     <x-themes.header />
+    <x-themes.header-mobile />
+    
     @yield('content')
+    <x-themes.footer />
     @vite(['resources/js/app.js'])
 </body>
 </html>

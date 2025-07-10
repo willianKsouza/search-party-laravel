@@ -23,4 +23,6 @@ class Message extends Model
     {
         return $this->belongsTo(Post::class);
     }
+
+  
 }

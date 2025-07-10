@@ -5,13 +5,39 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
-
-
-
-
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
-        
+
+    --color-primary: #f28136;
+    --color-border: #ca3500;
+    --color-background: #101828;
+    --color-background-hover: color-mix(in oklab, #bb500c 30%, transparent);
+
+  
+    
 }
+
+@layer utilities {
+    .scrollbar-custom {
+        scrollbar-width: auto;
+        scrollbar-color: #8b8b8b #101828;
+    }
+
+    .scrollbar-custom::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    .scrollbar-custom::-webkit-scrollbar-track {
+        background: #E5E7EB;
+    }
+
+    .scrollbar-custom::-webkit-scrollbar-thumb {
+        background-color: #83b60e;
+        border-radius: 9999px;
+        border: 5px solid #0a48c4;
+    }
+}
+
 [x-cloak] { display: none !important; }
