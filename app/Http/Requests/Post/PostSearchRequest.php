@@ -25,4 +25,11 @@ class PostSearchRequest extends FormRequest
             'search' => 'string'
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'search.string' => 'O campo de busca deve ser um texto.',
+        ];
+    }
 }

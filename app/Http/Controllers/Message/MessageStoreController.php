@@ -31,6 +31,7 @@ class MessageStoreController extends Controller
         
         broadcast(new MessageSentByUserEvent($message))->toOthers();
         
+        
         return response()->noContent();
     }
 }

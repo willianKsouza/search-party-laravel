@@ -22,8 +22,8 @@ class RegisterUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_name' => 'required|string|max:10|unique:users,user_name',
-            'email' => 'required|string|email|max:20|unique:users,email',
+            'user_name' => 'required|string|min:3|max:10|unique:users,user_name',
+            'email' => 'required|string|email:rfc,dns|max:50|unique:users,email',
             'password' => 'required|string|min:4|confirmed',
         ];
     }
@@ -33,6 +33,7 @@ class RegisterUserRequest extends FormRequest
         return [
             'user_name.required' => 'O nome de usuário é obrigatório.',
             'user_name.unique' => 'Este nome de usuário já está em uso. Tente outro.',
+            'user_name.min' => 'O nome de usuário deve ter no minimo 3 caracteres.',
             'user_name.max' => 'O nome de usuário deve ter no máximo 10 caracteres.',
 
             'email.required' => 'O e-mail é obrigatório.',

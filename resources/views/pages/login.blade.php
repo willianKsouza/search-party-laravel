@@ -26,9 +26,12 @@
                     class="text-blue-600 focus:ring-blue-500 border-gray-300 rounded h-4 w-4">
                 <label for="remember" class="ml-2 text-sm text-gray-300">Lembrar-me</label>
             </div>
-            <div class="">
+            <div class="flex flex-col gap-4">
                 <a href="{{ route('password.request') }}" class="text-sm text-blue-400 hover:underline">
                     Esqueceu a senha?
+                </a>
+                 <a href="{{ route('auth.register.show') }}" class="text-sm text-blue-400 hover:underline">
+                    Não possui conta?
                 </a>
             </div>
             <div>
@@ -36,15 +39,6 @@
                     class="w-full text-white bg-blue-600  font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200">
                     Entrar
                 </button>
-                {{-- <button x-show="form.loading" type="submit"
-                    class="w-full flex items-center justify-center gap-2 bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200">
-                    <svg class="w-5 h-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                            stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-                    </svg>
-                    Processing…
-                </button> --}}
             </div>
         </form>
     </x-container>

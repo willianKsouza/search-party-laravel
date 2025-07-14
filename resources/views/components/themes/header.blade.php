@@ -26,4 +26,5 @@
             </div>
         </nav>
     </x-container>
+    <div class=" border-b border-primary/50"></div>
 </header>

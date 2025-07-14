@@ -24,6 +24,8 @@ class HomeController extends Controller
 
         $posts_query = Post::query();
 
+        $array_slugs = null;
+
         if ($request->query('search')) {
             $singular = Str::singular($request->query('search'));
 
@@ -36,6 +38,8 @@ class HomeController extends Controller
 
             $slug = $request->query('category');
 
+            $array_slugs = explode(',', $slug);
+           
             $posts_query->OrWhereHas('categories', function (Builder $query) use ($slug) {
                 $query->WhereIn('slug', explode(',', $slug));
             });
@@ -43,7 +47,9 @@ class HomeController extends Controller
 
         $posts = $posts_query->get();
 
-        return view('pages.home', compact('categories', 'posts'))
+
+
+        return view('pages.home', compact('categories', 'posts', 'array_slugs'))
             ->with('search', $search);
     }
 }

@@ -4,7 +4,7 @@
     <p style="font-size: 16px; line-height: 1.5; margin-bottom: 24px;">
         Thank you for registering! Please click the button below to verify your email address:
     </p>
-    <a href="#"
+    <a href="{{ route('verification.verify') }}"
         style="display: inline-block; background-color: transparent; color: #ff6900; border: 2px solid #ff6900; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 4px; margin-bottom: 24px;">
         Verify Email
     </a>

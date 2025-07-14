@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterUserRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterStoreController extends Controller
 {
@@ -14,6 +15,7 @@ class RegisterStoreController extends Controller
      */
     public function __invoke(RegisterUserRequest $request)
     {
+         /** @var \Illuminate\Http\Request $request */
         $validated = $request->validated();
         
         $user = User::create($validated);
@@ -22,6 +24,12 @@ class RegisterStoreController extends Controller
             event(new Registered($user));
         }
 
+        $credentials = $request->only('email', 'password');
+
+        Auth::attempt($credentials);
+
+        $request->session()->regenerate();
+        
         return redirect()->route('pages.home');
     }
 }

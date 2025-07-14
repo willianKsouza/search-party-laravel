@@ -31,11 +31,29 @@ export default () => ({
             this.searchParams.set("category", newParams.toString());
 
             this.updateOrClearUrl(this.searchParams.toString());
+            return;
         }
+
+        const filterQuerys = newParams.filter((query) => {
+            return query != slug
+        })
+        
+        this.searchParams.set("category", filterQuerys.toString());
+        
+        this.updateOrClearUrl(this.searchParams.toString());
+    },
+    removeCategoryFilter(slug) {
+        const filterCategory = this.searchParams
+            .get("category")
+            .split(",")
+            .filter((e) => e != slug);
+        const newParams = filterCategory.toString()
+        this.searchParams.set("category", newParams.toString());
+        this.updateOrClearUrl(this.searchParams.toString());
     },
     updateOrClearUrl(query) {
         const newUrl = `${window.location.pathname}?${query}`;
-
+        
         window.location.href = newUrl;
     },
 });

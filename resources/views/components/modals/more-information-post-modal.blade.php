@@ -23,7 +23,7 @@
                         ></h2>
                         <button
                             x-on:click="closePostModal"
-                            class="justify-self-end col-span-1 size-[30px] py-1 border border-border hover:bg-background-hover rounded-md text-primary hover:text-white flex justify-center items-center"
+                            class="justify-self-end col-span-1 size-[30px] py-1 border border-primary/40 hover:bg-background-hover rounded-md text-primary hover:text-white flex justify-center items-center"
                         >
                             X
                         </button>
@@ -41,7 +41,7 @@
                         >
                             <x-breadcrumbs
                                 x-text="category.name"
-                                class="px-2 rounded-2xl border border-border text-primary hover:bg-background-hover hover:text-white"
+                                class="px-2 rounded-2xl border border-primary/40 text-primary hover:bg-background-hover hover:text-white"
                             ></x-breadcrumbs>
                         </template>
                     </x-breadcrumbs>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="grid grid-cols-12 flex-1 overflow-hidden">
                     <div
-                        class="border-t border-r border-primary/10 col-span-10 h-full overflow-y-hidden scrollbar-custom flex gap-4 flex-col pl-4 pb-4"
+                        class="border-t border-r border-primary/40 col-span-10 h-full overflow-y-hidden scrollbar-custom flex gap-4 flex-col pl-4 pb-4"
                     >
                         <div
                             class="flex-1 overflow-y-auto px-4"
@@ -104,7 +104,7 @@
                                     >
                                         <div
                                             class="max-w-xs px-4 py-2 rounded-lg"
-                                            :class="message.user_id === currentUserId ? 'bg-orange-500/70 text-white' : 'bg-gray-200 border border-border/10 text-gray-900'"
+                                            :class="message.user_id === currentUserId ? 'bg-orange-500/70 text-white' : 'bg-gray-200 border border-primary/40/10 text-gray-900'"
                                         >
                                             <span
                                                 x-text="message.message"
@@ -122,11 +122,11 @@
                                     x-model="post.data.message"
                                     type="text"
                                     placeholder="Digite sua mensagem..."
-                                    class="text-primary flex-1 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary bg-gray-900 border border-border"
+                                    class="text-primary flex-1 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary bg-gray-900 border border-primary/40"
                                 />
                                 <button
                                     x-on:click="sendMessage({{ auth()->user()->id }})"
-                                    class="flex justify-center items-center px-4 py-2 rounded text-primary hover:text-white border border-border hover:bg-background-hover"
+                                    class="flex justify-center items-center px-4 py-2 rounded text-primary hover:text-white border border-primary/40 hover:bg-background-hover"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -152,7 +152,7 @@
 
                     <!-- Lista de usuários -->
                     <div
-                        class="border-t border-primary/10 col-span-2 overflow-y-auto scrollbar-custom h-full"
+                        class="border-t border-primary/40 col-span-2 overflow-y-auto scrollbar-custom h-full"
                     >
                         <ul class="w-full text-end">
                             <template

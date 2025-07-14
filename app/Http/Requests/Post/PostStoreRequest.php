@@ -29,4 +29,21 @@ class PostStoreRequest extends FormRequest
             'categories.*' => ['integer', 'exists:categories,id', 'distinct'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'title.required' => 'O título é obrigatório.',
+            'title.string' => 'O título deve ser uma string.',
+            'title.unique' => 'Este título já está em uso.',
+            'body.required' => 'O corpo é obrigatório.',
+            'body.string' => 'O corpo deve ser uma string.',
+            'categories.required' => 'Selecione ao menos uma categoria.',
+            'categories.array' => 'Categorias devem ser um array.',
+            'categories.min' => 'Selecione ao menos uma categoria.',
+            'categories.*.integer' => 'Cada categoria deve ser um número inteiro.',
+            'categories.*.exists' => 'Categoria selecionada não existe.',
+            'categories.*.distinct' => 'Categorias duplicadas não são permitidas.',
+        ];
+    }
 }

@@ -53,7 +53,7 @@
                                 >
                                     Ver mais
                                 </button>
-                                @can("view", $post)
+                                {{-- @can("view", $post)
                                     <form
                                         method="POST"
                                         action="{{ route("post.delete", ["id" => $post->id]) }}"
@@ -67,7 +67,7 @@
                                             excluir
                                         </button>
                                     </form>
-                                @endcan
+                                @endcan --}}
                             </div>
                         </div>
                     @endforeach

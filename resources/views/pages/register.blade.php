@@ -18,6 +18,7 @@
                     Username
                 </label>
                 <input
+                    value="{{ old('user_name') ?? ''}}"
                     type="text"
                     id="user_name"
                     name="user_name"
@@ -33,6 +34,7 @@
                     Email
                 </label>
                 <input
+                    value="{{ old('email') ?? ''}}"
                     type="email"
                     id="email"
                     name="email"
@@ -82,23 +84,17 @@
                 </div>
             @endif
             <div>
+                 <a href="{{ route('login') }}" class="text-sm text-blue-400 hover:underline">
+                    Já possui conta?
+                </a>
+            </div>
+            <div>
                 <button
                     type="submit"
                     class="w-full text-white bg-blue-600 font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200"
                 >
                     Login
                 </button>
-                {{--
-                    <button x-show="form.loading" type="submit"
-                    class="w-full flex items-center justify-center gap-2 bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200">
-                    <svg class="w-5 h-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                    stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-                    </svg>
-                    Processing…
-                    </button>
-                --}}
             </div>
         </form>
     </x-container>
