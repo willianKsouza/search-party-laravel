@@ -96,7 +96,7 @@
                             <div class="flex flex-col gap-2">
                                 <template
                                     x-for="message in post.data.messages"
-                                    :key="message.created_at"
+                                    :key="message.id"
                                 >
                                     <div
                                         class="flex"

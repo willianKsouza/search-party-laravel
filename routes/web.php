@@ -17,6 +17,7 @@ use App\Http\Controllers\Message\MessageStoreController;
 use App\Http\Controllers\Post\PostDeleteController;
 use App\Http\Controllers\Post\PostIndexController;
 use App\Http\Controllers\Post\PostPageController;
+use App\Http\Controllers\Post\PostSearchController;
 use App\Http\Controllers\Post\PostShowController;
 use App\Http\Controllers\Post\PostStoreController;
 use App\Http\Controllers\User\ChangePasswordStoreController;
@@ -106,6 +107,9 @@ Route::put('/user/update/{id}', UserProfileUpdateController::class)
  Route::get('/user/post', PostPageController::class)
     ->middleware('auth', 'verified')
     ->name('pages.post');
+//  Route::get('/user/post/search', PostSearchController::class)
+//     ->middleware('auth', 'verified')
+//     ->name('post.search');
 
  Route::get('/user/post/{id}', PostIndexController::class)
     ->middleware('auth', 'verified');

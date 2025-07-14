@@ -2,18 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Post\PostSearchRequest;
 use App\Models\Category;
 use App\Models\Post;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
-    
-    public function __invoke(Request $request)
+
+
+    public function __invoke(PostSearchRequest $request)
     {
-        
+        /** @var \Illuminate\Http\Request $request */
+
+        $validate = $request->validated();
+
+        $search = $request->input('search', '');
+
         $categories = Category::all();
-        $posts = Post::all();
-        return view('pages.home', compact('categories','posts'));
+
+        $posts_query = Post::query();
+
+        if ($request->query('search')) {
+            $singular = Str::singular($request->query('search'));
+
+            $plural = Str::plural($request->query('search'));
+
+            $posts_query->where('title', 'LIKE', "%{$singular}%")
+                ->orWhere('title', 'LIKE', "%{$plural}%");
+        }
+        if ($request->query('category')) {
+
+            $slug = $request->query('category');
+
+            $posts_query->OrWhereHas('categories', function (Builder $query) use ($slug) {
+                $query->WhereIn('slug', explode(',', $slug));
+            });
+        }
+
+        $posts = $posts_query->get();
+
+        return view('pages.home', compact('categories', 'posts'))
+            ->with('search', $search);
     }
 }

@@ -2,31 +2,12 @@ import axios from "../plugins/axios";
 export default () => ({
     post: {
         data: {
-            title: "Procuro grupo para Baldurs Gate",
-            body: "quero um grupo bem habilidoso e perspicaz preciso de gente de level alto para enfrentar um boss",
+            title: "",
+            body: "",
             categories: [],
             message: "",
             participants:[],
-            messages: [
-                {
-                    message:
-                        "Estamos usando React com TypeScript e Tailwind CSS.",
-                    user_id: 2,
-                    created_at: new Date()
-                        .toISOString()
-                        .replace("T", " ")
-                        .replace("F", ""),
-                },
-                {
-                    message:
-                        "Que legal! Qual tecnologia vocês estão usando?",
-                    user_id: 1,
-                    created_at: new Date()
-                        .toISOString()
-                        .replace("T", " ")
-                        .replace("Z", ""),
-                },
-            ],
+            messages: [],
         },
         errors: {
             title: "",
@@ -42,6 +23,7 @@ export default () => ({
     async openPostModal(id) {
         try {
             const { post } = await this.getPostInfo(id);
+            console.log(post);
             await this.chatListener(post[0].id);
             this.post.data.title = post[0].title;
             this.post.data.body = post[0].body;
@@ -65,6 +47,8 @@ export default () => ({
     async createPost() {
         try {
             await axios.post("/user/post", this.post.data);
+            console.log(this.post.data);
+            
             location.reload();
         } catch (error) {
             const errors = error.response.data.errors;
@@ -105,6 +89,7 @@ export default () => ({
             }
         } finally {
             this.post.data.messages.push({
+                id: Date.now() + Math.random(),
                 message: this.post.data.message,
                 user_id: userId,
                 created_at: new Date()
@@ -112,7 +97,7 @@ export default () => ({
                     .replace("T", " ")
                     .replace("Z", ""),
             });
-            
+
             this.post.data.message = "";
         }
     },

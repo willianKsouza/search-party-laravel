@@ -9,7 +9,6 @@ use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    use SoftDeletes;
 
     protected $fillable = [
         'title',

@@ -1,22 +1,28 @@
 @extends("layouts.default")
 
 @section("content")
-    <x-container>
+    <x-container x-data="post()">
         <h1 class="text-2xl font-bold text-center text-orange-500">My Posts</h1>
-         <section class="py-4">
-                <x-breadcrumbs>
-                    <x-breadcrumbs.item class="px-4">All</x-breadcrumbs.item>
-                    @foreach ($categories as $category)
-                        <x-breadcrumbs.item>
-                            {{ $category->name }}
-                        </x-breadcrumbs.item>
-                    @endforeach
-                </x-breadcrumbs>
-            </section>
-            <section>
-                <div
-                    class="grid items-start grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-                >
+
+        <section class="py-4">
+            <x-breadcrumbs x-data="filters">
+                <x-breadcrumbs.item x-on:click="clearAllFilters" class="px-4">
+                    All
+                </x-breadcrumbs.item>
+                @foreach ($categories as $category)
+                    <x-breadcrumbs.item
+                        x-on:click="categoryFilter('{{ $category->slug }}')"
+                    >
+                        {{ $category->name }}
+                    </x-breadcrumbs.item>
+                @endforeach
+            </x-breadcrumbs>
+        </section>
+        <section>
+            <div
+                class="grid items-start grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+            >
+                @if ($posts->count())
                     @foreach ($posts as $key => $post)
                         <div
                             class="relative bg-white dark:bg-background rounded-lg shadow-lg p-4 flex flex-col justify-between"
@@ -65,19 +71,25 @@
                             </div>
                         </div>
                     @endforeach
+                @endif
 
-                    {{--
-                        @foreach (range(1,60) as $post)
-                        <div class="bg-primary p-4">
-                        <p>{{ $post }}</p>
-                        <p>{{ $post }}</p>
-                        <p>{{ $post }}</p>
-                        </div>
-                        @endforeach
-                    --}}
-                    <x-modals.more-information-post-modal />
-                    <x-modals.new-post-modal />
-                </div>
-            </section>
+                {{--
+                    <div class="mt-4">
+                    {{ $posts->appends(["q" => $search])->links() }}
+                    </div>
+                --}}
+                {{--
+                    @foreach (range(1,60) as $post)
+                    <div class="bg-primary p-4">
+                    <p>{{ $post }}</p>
+                    <p>{{ $post }}</p>
+                    <p>{{ $post }}</p>
+                    </div>
+                    @endforeach
+                --}}
+                <x-modals.more-information-post-modal />
+                <x-modals.new-post-modal />
+            </div>
+        </section>
     </x-container>
 @endsection
