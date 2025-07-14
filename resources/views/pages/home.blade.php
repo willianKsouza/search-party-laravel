@@ -39,7 +39,7 @@
             <section class="py-4">
                 <x-breadcrumbs x-data="filters">
                     <x-breadcrumbs.item
-                        x-on:click="clearAllFilters"
+                        x-on:click="updateOrClearUrl('')"
                         class="px-4"
                     >
                         All

@@ -8,22 +8,14 @@ export default () => ({
         if (this.search === "") {
             this.searchParams.delete("search");
 
-            const newUrl = `${window.location.pathname}?${this.searchParams.toString()}`;
-
-            window.history.replaceState({}, "", newUrl);
-
-            window.location.href = newUrl;
+            this.updateOrClearUrl(this.searchParams.toString());
 
             return;
         }
 
         this.searchParams.set("search", this.search);
 
-        const newUrl = `${window.location.pathname}?${this.searchParams.toString()}`;
-
-        window.history.replaceState({}, "", newUrl);
-
-        window.location.href = newUrl;
+        this.updateOrClearUrl(this.searchParams.toString());
     },
     categoryFilter(slug) {
         if (!slug) {
@@ -31,41 +23,19 @@ export default () => ({
         }
         this.searchParams = new URLSearchParams(window.location.search);
 
-        const newParams = this.searchParams.get("category") ?? [];
+        const newParams = this.searchParams.get("category")?.split(",") ?? [];
 
-        if (Array.isArray(newParams)) {
+        if (!newParams.includes(slug)) {
             newParams.push(slug);
 
-            this.searchParams.set("category", `${slug}`);
+            this.searchParams.set("category", newParams.toString());
 
-            const newUrl = `${window.location.pathname}?${this.searchParams.toString()}`;
-
-            window.history.replaceState({}, "", newUrl);
-
-            window.location.reload();
+            this.updateOrClearUrl(this.searchParams.toString());
         }
-        const stringParams = this.searchParams.getAll("category").toString();
-
-        const isExistsValue = stringParams.split(",").includes(slug);
-
-        if (isExistsValue) {
-            
-            return;
-        }
-
-        this.searchParams.set("category", `${stringParams},${slug}`);
-
-        const newUrl = `${window.location.pathname}?${this.searchParams.toString()}`;
-
-        window.history.replaceState({}, "", newUrl);
-
-        window.location.reload();
     },
-    clearAllFilters() {
-        const newUrl = `${window.location.pathname}`;
+    updateOrClearUrl(query) {
+        const newUrl = `${window.location.pathname}?${query}`;
 
-        window.history.replaceState({}, "", newUrl);
-
-        window.location.reload();
+        window.location.href = newUrl;
     },
 });
