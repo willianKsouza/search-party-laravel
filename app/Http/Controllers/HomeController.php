@@ -44,9 +44,9 @@ class HomeController extends Controller
                 $query->WhereIn('slug', explode(',', $slug));
             });
         }
-
+        
         $posts = $posts_query->get();
-
+      
 
 
         return view('pages.home', compact('categories', 'posts', 'array_slugs'))

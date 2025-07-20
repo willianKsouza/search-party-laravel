@@ -37,6 +37,6 @@ class Post extends Model
 
     public function participants()
     {
-        return $this->belongsToMany(User::class)->withTimestamps();
+        return $this->belongsToMany(User::class)->withPivot('last_read_at')->withTimestamps();
     }
 }

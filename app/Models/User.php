@@ -2,16 +2,13 @@
 
 namespace App\Models;
 
-
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
@@ -37,7 +34,6 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     protected $hidden = [
         'password',
         'remember_token',
-        'pivot'
     ];
 
     /**
@@ -58,8 +54,22 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->hasMany(Post::class);
     }
 
-        public function messages()
+    public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function getIsOnlineAttribute()
+    {
+        $timeout = 5 * 60;
+
+        $timeLimit = Carbon::now()->subSeconds($timeout)->getTimestamp();
+
+        $isOnline = DB::table('sessions')
+            ->where('user_id', $this->id)
+            ->where('last_activity', '>=', $timeLimit)
+            ->exists();
+
+        return $isOnline;
     }
 }

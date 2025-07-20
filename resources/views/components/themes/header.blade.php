@@ -1,4 +1,4 @@
-<header class="hidden md:block bg-white dark:bg-gray-900">
+<header class="hidden lg:block bg-white dark:bg-gray-900">
     <x-container>
         <nav class="flex justify-between items-center py-4 h-[70px]">
             <a
@@ -18,7 +18,12 @@
                     </a>
                 </li>
             </ul>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-4">
+                <div x-data="notifications" x-on:click="toggleMenu" class="relative py-4 pl-2">
+                    <span class="absolute text-red-500 text-2xl font-bold top-0 right-0">!</span>
+                    <x-icons.notification class="text-primary"/>
+                    <x-modals.notifications />
+                </div>
                 <h2 class="font-bold text-primary">Welcome, {{ auth()->user()->user_name }}</h2>
              <button>
                 <a class="px-2 py-4 text-primary font-semibold hover:text-white" href="{{ route("auth.logout") }}">Logout</a></li>

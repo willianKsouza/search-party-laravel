@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Message;
 
 use App\Events\MessageSentByUserEvent;
+use App\Events\NotificationNewMessageForOuthersEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Message\MessageUserRequest;
 use App\Listeners\OnMessageSentByUserListener;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class MessageStoreController extends Controller
 {
@@ -27,11 +29,11 @@ class MessageStoreController extends Controller
 
         $post = $message->post;
 
-        $post->participants()->syncWithoutDetaching([Auth::user()->id]);
-        
+        $post->participants()
+            ->syncWithoutDetaching([Auth::user()->id => ['last_read_at' => now()]]);
+
         broadcast(new MessageSentByUserEvent($message))->toOthers();
-        
-        
-        return response()->noContent();
+
+        return response()->json(['id' => $message->id]);
     }
 }

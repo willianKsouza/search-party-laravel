@@ -37,7 +37,7 @@
                     <x-breadcrumbs class="flex items-center gap-2">
                         <template
                             x-for="category in post.data.categories"
-                            :key="category.id"
+                            :key="category.id + '-' + category.name"
                         >
                             <x-breadcrumbs
                                 x-text="category.name"
@@ -94,23 +94,25 @@
                             x-init="observer"
                         >
                             <div class="flex flex-col gap-2">
-                                <template
-                                    x-for="message in post.data.messages"
-                                    :key="message.id"
-                                >
-                                    <div
-                                        class="flex"
-                                        :class="message.user_id === currentUserId ? 'justify-end' : 'justify-start'"
+                                <template x-if="post?.data?.messages">
+                                    <template
+                                        x-for="message in post.data.messages"
+                                        :key="message.id"
                                     >
                                         <div
-                                            class="max-w-xs px-4 py-2 rounded-lg"
-                                            :class="message.user_id === currentUserId ? 'bg-orange-500/70 text-white' : 'bg-gray-200 border border-primary/40/10 text-gray-900'"
+                                            class="flex"
+                                            :class="message.user_id === currentUserId ? 'justify-end' : 'justify-start'"
                                         >
-                                            <span
-                                                x-text="message.message"
-                                            ></span>
+                                            <div
+                                                class="max-w-xs px-4 py-2 rounded-lg"
+                                                :class="message.user_id === currentUserId ? 'bg-orange-500/70 text-white' : 'bg-gray-200 border border-primary/40/10 text-gray-900'"
+                                            >
+                                                <span
+                                                    x-text="message.message"
+                                                ></span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </template>
                                 </template>
                                 <div x-ref="messagesEnd"></div>
                             </div>
@@ -169,8 +171,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Modal de erro -->
         <div
             x-show="post.warning"
             class="mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg w-[90%] md:w-[70%] h-[500px] flex justify-center items-center"

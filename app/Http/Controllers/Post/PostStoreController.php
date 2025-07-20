@@ -27,7 +27,7 @@ class PostStoreController extends Controller
         
         $post->categories()->attach($validate['categories']);
 
-        $post->participants()->syncWithoutDetaching([Auth::user()->id]);
+        $post->participants()->syncWithPivotValues([Auth::user()->id], ['last_read_at' => now()]);
         
         return response()->noContent();
     }

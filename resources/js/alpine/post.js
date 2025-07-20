@@ -6,7 +6,7 @@ export default () => ({
             body: "",
             categories: [],
             message: "",
-            participants:[],
+            participants: [],
             messages: [],
         },
         errors: {
@@ -23,8 +23,8 @@ export default () => ({
     async openPostModal(id) {
         try {
             const { post } = await this.getPostInfo(id);
-            console.log(post);
-            await this.chatListener(post[0].id);
+            this.chatListener(post[0].id);
+            this.chatPresenseListenner(post[0].id);
             this.post.data.title = post[0].title;
             this.post.data.body = post[0].body;
             this.post.postId = post[0].id;
@@ -48,7 +48,7 @@ export default () => ({
         try {
             await axios.post("/user/post", this.post.data);
             console.log(this.post.data);
-            
+
             location.reload();
         } catch (error) {
             const errors = error.response.data.errors;
@@ -74,13 +74,16 @@ export default () => ({
         if (this.post.data.message.trim() === "") {
             return;
         }
-        const id = this.post.postId;
+        let messageId;
         try {
-            await axios.post("/message/send/" + id, {
-                message: this.post.data.message,
-                post_id: this.post.postId,
-            });
-            this.post.data.participants.push()
+            const { data } = await axios.post(
+                "/message/send/" + this.post.postId,
+                {
+                    message: this.post.data.message,
+                    post_id: this.post.postId,
+                },
+            );
+            messageId = data.id;
         } catch (error) {
             const errors = error.response.data.errors;
             this.post.errors = {};
@@ -88,24 +91,54 @@ export default () => ({
                 this.post.errors[field] = errors[field][0];
             }
         } finally {
-            this.post.data.messages.push({
-                id: Date.now() + Math.random(),
-                message: this.post.data.message,
-                user_id: userId,
-                created_at: new Date()
-                    .toISOString()
-                    .replace("T", " ")
-                    .replace("Z", ""),
-            });
-
+            if (messageId) {
+                this.post.data.messages.push({
+                    id: messageId,
+                    message: this.post.data.message,
+                    user_id: userId,
+                    created_at: new Date()
+                        .toISOString()
+                        .replace("T", " ")
+                        .replace("Z", ""),
+                });
+            }
             this.post.data.message = "";
         }
     },
-    async chatListener(postId) {
-        await Echo.private(`chat.post.${postId}`).listen(
+    chatListener(postId) {
+        window.Echo.private(`chat.post.${postId}`).listen(
             ".user.message.sent",
             (e) => {
-                this.post.data.messages.push(e.message);
+                console.log(e);
+                const messageExists = this.post.data.messages.some(msg => msg.id === e.message.id)
+                if (!messageExists) {
+                    this.post.data.messages.push(e.message);
+                }
+            },
+        );
+    },
+    chatPresenseListenner(postId) {
+        window.Echo.join(`chat.post.${postId}`)
+            .here(async (users) => {
+                //  await axios.post();
+            })
+            .joining((user) => {
+                console.log("joining func", user);
+            })
+            .leaving((user) => {
+                console.log("leaving fun", user);
+            })
+            .error((error) => {
+                console.error("error fun", error);
+            });
+    },
+    notificationListener(userId) {
+        console.log();
+
+        window.Echo.private(`user.notify.${userId}`).listen(
+            ".user.notify",
+            (e) => {
+                console.log("Recebido:", e);
             },
         );
     },

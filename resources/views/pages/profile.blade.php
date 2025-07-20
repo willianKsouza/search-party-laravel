@@ -5,9 +5,9 @@
             <form action="{{ route('user.update', ['id' => $user->id]) }}" method="POST" class="space-y-6">
                 @method('PUT')
                 @csrf
-                <h2 class="text-2xl font-bold text-center text-orange-500">Profile</h2>
+                <h2 class="text-2xl font-bold text-center text-primary">Profile</h2>
                 <div>
-                    <label for="user_name" class="block text-sm font-medium text-orange-500 mb-1">Username</label>
+                    <label for="user_name" class="block text-sm font-medium text-primary mb-1">Username</label>
                     <input value="{{ $user->user_name ?? old('user_name') }}" type="text" id="user_name" name="user_name"
                         placeholder="Your username"
                         class="w-full text-white border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
@@ -18,7 +18,7 @@
                     @enderror
                 </div>
                 <div>
-                    <label for="email" class="block text-sm font-medium text-orange-500 mb-1">Email</label>
+                    <label for="email" class="block text-sm font-medium text-primary mb-1">Email</label>
                     <input value="{{ $user->email ?? old('email') }}" type="email" id="email" name="email"
                         placeholder="you@example.com"
                         class="w-full text-white border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
@@ -48,20 +48,20 @@
             <form action="{{ route('password.change.store') }}" method="POST" class="space-y-6">
                 @csrf
                 <div>
-                    <p class="text-lg font-medium text-orange-500 mb-1"></p>
-                    <label for="current_password" class="block text-sm font-medium text-orange-500 mb-1">Digite sua senha
+                    <p class="text-lg font-medium text-primary mb-1"></p>
+                    <label for="current_password" class="block text-sm font-medium text-primary mb-1">Digite sua senha
                         atual</label>
                     <input type="password" id="current_password" name="current_password" placeholder="********"
                         class="w-full text-white border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
                 </div>
                 <div>
-                    <label for="new_password" class="block text-sm font-medium text-orange-500 mb-1">Digite sua
+                    <label for="new_password" class="block text-sm font-medium text-primary mb-1">Digite sua
                         nova senha</label>
                     <input type="password" id="new_password" name="new_password" placeholder="********"
                         class="w-full text-white border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
                 </div>
                 <div>
-                    <label for="new_password_confirmation" class="block text-sm font-medium text-orange-500 mb-1">Confirme sua
+                    <label for="new_password_confirmation" class="block text-sm font-medium text-primary mb-1">Confirme sua
                         nova senha</label>
                     <input type="password" id="new_password_confirmation" name="new_password_confirmation" placeholder="********"
                         class="w-full text-white border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />

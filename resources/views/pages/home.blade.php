@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('content')
-    <section x-data="post()">
+    <section x-data="post()" x-init="notificationListener({{ auth()->user()->id }})">
         <x-container>
             <section x-data="filters" class="flex justify-between gap-4 mt-6">
                 <x-form method="GET" class="grow flex items-center">

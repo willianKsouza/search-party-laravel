@@ -60,6 +60,7 @@
                             class="flex items-center space-x-2 bg-gray-700 px-3 py-2 rounded"
                         >
                             <input
+                                //TODO parece que o modal esta usando os mesmos dados em alguma lugar, estao conflitando
                                 x-model="post.data.categories"
                                 type="checkbox"
                                 name="categories[]"

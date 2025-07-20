@@ -1,6 +1,6 @@
 <header
     x-data="menuMobile"
-    class="relative block md:hidden bg-white dark:bg-gray-900"
+    class="relative block lg:hidden bg-white dark:bg-gray-900"
 >
     <x-container>
         <nav class="flex justify-between items-center py-4 h-[70px]">

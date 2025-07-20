@@ -13,7 +13,7 @@ class UserProfilePageController extends Controller
     public function __invoke(Request $request)
     {
         $user = $request->user();
-
+        
         return view('pages.profile', compact('user'));
     }
 }
