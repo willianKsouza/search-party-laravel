@@ -12,6 +12,8 @@ use App\Http\Controllers\Auth\ResetPasswordStoreController;
 use App\Http\Controllers\Auth\VerificationSendEmailController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\VerifyEmailNoticePageController;
+use App\Http\Controllers\Chat\ChatSetOnlineUser;
+use App\Http\Controllers\Chat\ChatSetStatusUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Message\MessageStoreController;
 use App\Http\Controllers\Post\PostDeleteController;
@@ -126,3 +128,9 @@ Route::put('/user/update/{id}', UserProfileUpdateController::class)
     Route::post('/message/send/{id}', MessageStoreController::class)
     ->middleware('auth', 'verified');
 // FIM Message Routes
+
+
+// Chat Routes
+    Route::post('/chat/set/status/{post_id}', ChatSetStatusUserController::class)
+    ->middleware('auth', 'verified');
+// FIM Chat Routes

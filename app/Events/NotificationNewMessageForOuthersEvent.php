@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -20,9 +21,7 @@ class NotificationNewMessageForOuthersEvent implements ShouldQueue, ShouldBroadc
      * Create a new event instance.
      */
     public function __construct(
-        public int $user_id,
-        public int $post_id,
-        public string $post_title
+            public User $user,
     ) {}
 
     /**
@@ -33,7 +32,7 @@ class NotificationNewMessageForOuthersEvent implements ShouldQueue, ShouldBroadc
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('user.notify.' . $this->user_id)
+            new PrivateChannel('user.notify.' . $this->user->id)
         ];
     }
 
@@ -42,12 +41,11 @@ class NotificationNewMessageForOuthersEvent implements ShouldQueue, ShouldBroadc
         return 'user.notify';
     }
 
-    public function broadcastWith(): array
-    {
-        return [
-            'post_id' => $this->post_id,
-            'user_id' => $this->user_id,
-            'post_title' => $this->post_title,
-        ];
-    }
+    // public function broadcastWith(): array
+    // {
+    //     return [
+    //         'user_id' => $this->,
+    //         'post_title' => $this->,
+    //     ];
+    // }
 }

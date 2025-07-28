@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Events\MessageSentByUserEvent;
 use App\Events\NotificationNewMessageForOuthersEvent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class OnMessageSentByUserListener
@@ -29,8 +30,11 @@ class OnMessageSentByUserListener
             ->wherePivot('last_read_at', '<=', $message->created_at)
             ->get();
 
+        $online_users = Cache::store('database')->get("post_online_users:{$message->post_id}", []);
         foreach ($participants as $participant) {
-            broadcast(new NotificationNewMessageForOuthersEvent($participant->id, $message->post_id, $post_title))->toOthers();
+            if (!in_array($participant->id, $online_users)) {
+                broadcast(new NotificationNewMessageForOuthersEvent($participant))->toOthers();
+            }
         }
     }
 }

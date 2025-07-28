@@ -39,48 +39,7 @@
                     class="grid items-start grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     @if ($posts->count())
                         @foreach ($posts as $key => $post)
-                            <div
-                                class="relative bg-white dark:bg-background rounded-lg shadow-lg p-4 flex flex-col justify-between">
-                                <div>
-                                    <div>
-                                        <h2 class="text-lg font-semibold text-gray-900 dark:text-orange-500">
-                                            {{ $post->title }}
-                                        </h2>
-                                        <span
-                                            class="absolute top-1 right-1 flex justify-center items-center rounded-full bg-red-700 text-white size-6 rotate-12 text-xs">
-                                            {{ $key }}
-                                        </span>
-                                        {{-- <span x-show="hasNotification({{ $post->id }})"
-                                            class="absolute top-1 right-1 flex justify-center items-center rounded-full bg-red-700 text-white size-6 rotate-12 text-xs">
-                                            {{ $key }}
-                                        </span> --}}
-                                    </div>
-                                    <p class="text-gray-700 dark:text-gray-300 mt-2">
-                                        {{ $post->body }}
-                                    </p>
-                                </div>
-                                <div class="mt-4 flex justify-between">
-                                    <button x-on:click="openPostModal({{ $post->id }})"
-                                        class="w-[100px] py-1 border border-primary/50 hover:bg-amber-900 rounded-md text-amber-700">
-                                        Ver mais
-                                    </button>
-                                    {{-- @can('view', $post)
-                                        <form
-                                            method="POST"
-                                            action="{{ route("post.delete", ["id" => $post->id]) }}"
-                                        >
-                                            @method("DELETE")
-                                            @csrf
-                                            <button
-                                                type="submit"
-                                                class="w-[100px] py-1 border border-red-700/50 hover:bg-red-900 rounded-md text-white"
-                                            >
-                                                excluir
-                                            </button>
-                                        </form>
-                                    @endcan --}}
-                                </div>
-                            </div>
+                        <x-card-post :post="$post" />
                         @endforeach
                     @endif
 

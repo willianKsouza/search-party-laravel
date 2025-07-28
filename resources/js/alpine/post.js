@@ -22,6 +22,8 @@ export default () => ({
     },
     async openPostModal(id) {
         try {
+            console.log("id", id);
+
             const { post } = await this.getPostInfo(id);
             this.chatListener(post[0].id);
             this.chatPresenseListenner(post[0].id);
@@ -38,8 +40,18 @@ export default () => ({
             this.post.showPostModal = true;
         }
     },
-    closePostModal() {
-        this.post.showPostModal = false;
+    async closePostModal() {
+        try {
+            this.post.showPostModal = false;
+        } catch (error) {
+            alert("ocorreu um erro atualize a pagina");
+        } finally {
+            console.log('fechou modal');
+            
+            this.chatSetStatusUser();
+             Echo.leave(`chat.post.${this.post.postId}`);
+       
+        }
     },
     toggleNewPostModal() {
         this.post.showNewPostModal = !this.post.showNewPostModal;
@@ -47,6 +59,7 @@ export default () => ({
     async createPost() {
         try {
             await axios.post("/user/post", this.post.data);
+
             console.log(this.post.data);
 
             location.reload();
@@ -109,8 +122,9 @@ export default () => ({
         window.Echo.private(`chat.post.${postId}`).listen(
             ".user.message.sent",
             (e) => {
-                console.log(e);
-                const messageExists = this.post.data.messages.some(msg => msg.id === e.message.id)
+                const messageExists = this.post.data.messages.some(
+                    (msg) => msg.id === e.message.id,
+                );
                 if (!messageExists) {
                     this.post.data.messages.push(e.message);
                 }
@@ -119,22 +133,22 @@ export default () => ({
     },
     chatPresenseListenner(postId) {
         window.Echo.join(`chat.post.${postId}`)
-            .here(async (users) => {
-                //  await axios.post();
+            .here((user) => {
+                console.log( "here", user);
+                
+                this.chatSetStatusUser();
             })
             .joining((user) => {
-                console.log("joining func", user);
+                console.log("joining", user);
             })
             .leaving((user) => {
-                console.log("leaving fun", user);
+                console.log("leaving", user)
             })
             .error((error) => {
                 console.error("error fun", error);
             });
     },
     notificationListener(userId) {
-        console.log();
-
         window.Echo.private(`user.notify.${userId}`).listen(
             ".user.notify",
             (e) => {
@@ -142,4 +156,8 @@ export default () => ({
             },
         );
     },
+    async chatSetStatusUser() {
+        await axios.post(`/chat/set/status/${this.post.postId}`);
+    },
+
 });

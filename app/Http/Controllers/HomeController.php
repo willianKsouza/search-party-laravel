@@ -46,8 +46,6 @@ class HomeController extends Controller
         }
         
         $posts = $posts_query->get();
-      
-
 
         return view('pages.home', compact('categories', 'posts', 'array_slugs'))
             ->with('search', $search);

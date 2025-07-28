@@ -13,7 +13,7 @@
             <div
                 x-on:click.stop
                 x-transition
-                class="bg-white dark:bg-background rounded-lg shadow-lg w-[90%] md:w-[70%] h-[500px] flex flex-col pt-6"
+                class="bg-white dark:bg-background rounded-lg shadow-lg w-[90%] md:w-[70%] h-[500px] flex flex-col pt-6 border border-primary/40"
             >
                 <div class="w-full px-6">
                     <div class="flex justify-between items-center mb-4">

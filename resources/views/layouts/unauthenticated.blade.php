@@ -7,7 +7,7 @@
     <title>Laravel</title>
     @vite(['resources/css/app.css'])
 </head>
-<body class="bg-zinc-500">
+<body class="bg-[#1b2a36] flex flex-col h-screen">
     <header class="bg-white dark:bg-gray-900">
         <x-container>
             <nav class="flex justify-center items-center py-4">
@@ -17,7 +17,9 @@
             </nav>
         </x-container>
     </header>
-    @yield('content')
+    <main class="h-full flex items-center">
+        @yield('content')
+    </main>
     @vite(['resources/js/app.js'])
 </body>
 </html>

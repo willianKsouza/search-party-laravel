@@ -26,7 +26,7 @@
                 x-cloak
                 x-transition
                 x-show="open"
-                class="absolute left-10 top-6 w-[150px] bg-primary p-4 rounded"
+                class="absolute left-10 top-6 w-[150px] bg-primary p-4 rounded z-10"
             >
                 <ul class="relative *:font-bold space-y-2 *:py-2">
                     <li class="flex justify-between items-center">
