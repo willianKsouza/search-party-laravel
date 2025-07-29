@@ -12,16 +12,32 @@
                     Welcome, {{ auth()->user()->user_name }}
                 </h2>
             </div>
-            <a
-                href="{{ route("pages.home") }}"
-                class="flex items-center gap-2"
-            >
-                <img
-                    src="{{ asset("img/logo.png") }}"
-                    alt="Logo"
-                    class="size-[30px] w-full"
-                />
-            </a>
+            <div class="flex items-center gap-4">
+                <div
+                    x-data="notifications"
+                    x-init="notificationListener({{ auth()->user()->id }})"
+                    x-on:click="toggleMenu"
+                    class="relative py-4 pl-2"
+                >
+                    <span
+                        class="absolute text-red-500 text-2xl font-bold top-0 right-0"
+                    >
+                        !
+                    </span>
+                    <x-icons.notification class="text-primary" />
+                    <x-modals.notifications />
+                </div>
+                <a
+                    href="{{ route("pages.home") }}"
+                    class="flex items-center gap-2"
+                >
+                    <img
+                        src="{{ asset("img/logo.png") }}"
+                        alt="Logo"
+                        class="size-[30px] w-full"
+                    />
+                </a>
+            </div>
             <div
                 x-cloak
                 x-transition

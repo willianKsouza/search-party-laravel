@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
-class ChatSetStatusUserController extends Controller
+class ChatSetOnlineStatusUserController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -22,19 +22,12 @@ class ChatSetStatusUserController extends Controller
 
         $is_online = in_array(Auth::user()->id, $online_users);
 
-        if ($is_online) {
-            $online_users = array_filter($online_users, fn($id) => $id !== Auth::user()->id);
-        } else {
-
+        if (!$is_online) {
             $online_users[] = Auth::user()->id;
-        }
 
-        if (empty($online_users)) {
+            $cache->put("post_online_users:{$post_id}", array_values($online_users), 300);
 
-            $cache->forget("post_online_users:{$post_id}");
-        } else {
-
-            $cache->put("post_online_users:{$post_id}", array_values($online_users));
+            return response()->noContent();
         }
 
         return response()->noContent();

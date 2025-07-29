@@ -22,8 +22,6 @@ export default () => ({
     },
     async openPostModal(id) {
         try {
-            console.log("id", id);
-
             const { post } = await this.getPostInfo(id);
             this.chatListener(post[0].id);
             this.chatPresenseListenner(post[0].id);
@@ -46,11 +44,10 @@ export default () => ({
         } catch (error) {
             alert("ocorreu um erro atualize a pagina");
         } finally {
-            console.log('fechou modal');
-            
-            this.chatSetStatusUser();
-             Echo.leave(`chat.post.${this.post.postId}`);
-       
+            console.log("fechou modal");
+
+            this.chatSetStatusUser('offline');
+            Echo.leave(`chat.post.${this.post.postId}`);
         }
     },
     toggleNewPostModal() {
@@ -84,7 +81,7 @@ export default () => ({
         }
     },
     async sendMessage(userId) {
-        if (this.post.data.message.trim() === "") {
+        if (this.post.data.message.trim() === "" || this.post.data.message === null) {
             return;
         }
         let messageId;
@@ -134,30 +131,22 @@ export default () => ({
     chatPresenseListenner(postId) {
         window.Echo.join(`chat.post.${postId}`)
             .here((user) => {
-                console.log( "here", user);
+                console.log("here", user); 
+                this.chatSetStatusUser('online');
                 
-                this.chatSetStatusUser();
             })
             .joining((user) => {
                 console.log("joining", user);
             })
             .leaving((user) => {
-                console.log("leaving", user)
+                // this.chatSetStatusUser()
             })
             .error((error) => {
                 console.error("error fun", error);
             });
     },
-    notificationListener(userId) {
-        window.Echo.private(`user.notify.${userId}`).listen(
-            ".user.notify",
-            (e) => {
-                console.log("Recebido:", e);
-            },
-        );
-    },
-    async chatSetStatusUser() {
-        await axios.post(`/chat/set/status/${this.post.postId}`);
-    },
 
+    async chatSetStatusUser(state) {
+        await axios.post(`/chat/set/status/${state}/${this.post.postId}`);
+    },
 });

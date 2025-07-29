@@ -58,18 +58,5 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     {
         return $this->hasMany(Message::class);
     }
-
-    public function getIsOnlineAttribute()
-    {
-        $timeout = 5 * 60;
-
-        $timeLimit = Carbon::now()->subSeconds($timeout)->getTimestamp();
-
-        $isOnline = DB::table('sessions')
-            ->where('user_id', $this->id)
-            ->where('last_activity', '>=', $timeLimit)
-            ->exists();
-
-        return $isOnline;
-    }
+ 
 }

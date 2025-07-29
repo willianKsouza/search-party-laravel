@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+
 class PostPageController extends Controller
 {
     /**
@@ -18,17 +19,22 @@ class PostPageController extends Controller
     {
         $categories = Category::all();
 
+        $array_slugs = null;
+
         $posts_query = Post::where('user_id', Auth::user()->id);
+
         if ($request->query('category')) {
             $slug = $request->query('category');
+
+            $array_slugs = explode(',', $slug);
 
             $posts_query->WhereHas('categories', function (Builder $query) use ($slug) {
                 $query->WhereIn('slug', explode(',', $slug));
             });
         }
-        
+
         $posts = $posts_query->get();
-        
-        return view('pages.posts', compact('posts', 'categories'));
+
+        return view('pages.posts', compact('posts', 'categories', 'array_slugs'));
     }
 }

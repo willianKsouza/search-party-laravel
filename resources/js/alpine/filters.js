@@ -5,7 +5,9 @@ export default () => ({
         this.search = this.searchParams.get("search");
     },
     searchByTitle() {
-        if (this.search === "") {
+        console.log(this.search);
+        
+        if (this.search === "" || this.search === null) {
             this.searchParams.delete("search");
 
             this.updateOrClearUrl(this.searchParams.toString());

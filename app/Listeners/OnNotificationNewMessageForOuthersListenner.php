@@ -21,6 +21,6 @@ class OnNotificationNewMessageForOuthersListenner
      */
     public function handle(NotificationNewMessageForOuthersEvent $event): void
     {
-        //
+        
     }
 }

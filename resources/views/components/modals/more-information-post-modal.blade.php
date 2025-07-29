@@ -37,8 +37,9 @@
                     <x-breadcrumbs class="flex items-center gap-2">
                         <template
                             x-for="category in post.data.categories"
-                            :key="category.id + '-' + category.name"
+                            :key="category.id"
                         >
+                         {{-- :key="category.id + '-' + category.name" --}}
                             <x-breadcrumbs
                                 x-text="category.name"
                                 class="px-2 rounded-2xl border border-primary/40 text-primary hover:bg-background-hover hover:text-white"

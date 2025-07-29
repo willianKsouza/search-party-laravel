@@ -12,6 +12,8 @@ use App\Http\Controllers\Auth\ResetPasswordStoreController;
 use App\Http\Controllers\Auth\VerificationSendEmailController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\VerifyEmailNoticePageController;
+use App\Http\Controllers\Chat\ChatSetOfflineStatusUserController;
+use App\Http\Controllers\Chat\ChatSetOnlineStatusUserController;
 use App\Http\Controllers\Chat\ChatSetOnlineUser;
 use App\Http\Controllers\Chat\ChatSetStatusUserController;
 use App\Http\Controllers\HomeController;
@@ -131,6 +133,8 @@ Route::put('/user/update/{id}', UserProfileUpdateController::class)
 
 
 // Chat Routes
-    Route::post('/chat/set/status/{post_id}', ChatSetStatusUserController::class)
+    Route::post('/chat/set/status/online/{post_id}', ChatSetOnlineStatusUserController::class)
+    ->middleware('auth', 'verified');
+    Route::post('/chat/set/status/offline/{post_id}', ChatSetOfflineStatusUserController::class)
     ->middleware('auth', 'verified');
 // FIM Chat Routes
