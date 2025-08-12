@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ChangePasswordFormController;
 use App\Http\Controllers\Auth\ForgotPasswordStoreController;
 use App\Http\Controllers\Auth\LoginFormController;
@@ -14,29 +15,19 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\VerifyEmailNoticePageController;
 use App\Http\Controllers\Chat\ChatSetOfflineStatusUserController;
 use App\Http\Controllers\Chat\ChatSetOnlineStatusUserController;
-use App\Http\Controllers\Chat\ChatSetOnlineUser;
-use App\Http\Controllers\Chat\ChatSetStatusUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Message\MessageStoreController;
-use App\Http\Controllers\Post\PostDeleteController;
+use App\Http\Controllers\Notifications\MarkAllAsReadNotificationController;
+use App\Http\Controllers\Notifications\MarkAsReadNotificationController;
+use App\Http\Controllers\Notifications\NotificationsPageController;
+use App\Http\Controllers\Post\PostExitParticipantController;
 use App\Http\Controllers\Post\PostIndexController;
 use App\Http\Controllers\Post\PostPageController;
-use App\Http\Controllers\Post\PostSearchController;
-use App\Http\Controllers\Post\PostShowController;
 use App\Http\Controllers\Post\PostStoreController;
 use App\Http\Controllers\User\ChangePasswordStoreController;
 use App\Http\Controllers\User\UserProfilePageController;
 use App\Http\Controllers\User\UserProfileUpdateController;
-use App\Mail\ConfirmationAccountMail;
-use App\Models\User;
-use Illuminate\Support\Facades\Route;
 
-
-Route::get('/mailable', function () {
-    $user = User::find(1);
-
-    return new ConfirmationAccountMail($user);
-});
 
 Route::get('/', HomeController::class)
     ->middleware('auth', 'verified')
@@ -108,33 +99,46 @@ Route::put('/user/update/{id}', UserProfileUpdateController::class)
 // FIM User Profile  Routes
 
 // User Post Routes
- Route::get('/user/post', PostPageController::class)
+Route::get('/user/post', PostPageController::class)
     ->middleware('auth', 'verified')
     ->name('pages.post');
-//  Route::get('/user/post/search', PostSearchController::class)
-//     ->middleware('auth', 'verified')
-//     ->name('post.search');
 
- Route::get('/user/post/{id}', PostIndexController::class)
+Route::get('/user/post/{id}', PostIndexController::class)
     ->middleware('auth', 'verified');
 
- Route::post('/user/post', PostStoreController::class)
+Route::post('/user/post', PostStoreController::class)
     ->middleware('auth', 'verified');
 
- Route::delete('/user/post/{id}', PostDeleteController::class)
-    ->name('post.delete')
+Route::post('/user/post/{id}', PostExitParticipantController::class)
+    ->name('post.exit')
     ->middleware('auth', 'verified');
 // FIM User Post  Routes
 
 // Message Routes
-    Route::post('/message/send/{id}', MessageStoreController::class)
+Route::post('/message/send/{id}', MessageStoreController::class)
     ->middleware('auth', 'verified');
 // FIM Message Routes
 
 
 // Chat Routes
-    Route::post('/chat/set/status/online/{post_id}', ChatSetOnlineStatusUserController::class)
+Route::post('/chat/set/status/online/{post_id}', ChatSetOnlineStatusUserController::class)
     ->middleware('auth', 'verified');
-    Route::post('/chat/set/status/offline/{post_id}', ChatSetOfflineStatusUserController::class)
+Route::post('/chat/set/status/offline/{post_id}', ChatSetOfflineStatusUserController::class)
     ->middleware('auth', 'verified');
 // FIM Chat Routes
+
+
+// Notification Routes
+Route::get('/notifications', NotificationsPageController::class)
+    ->middleware('auth', 'verified')
+    ->name('pages.notifications');
+
+Route::post('/notifications/mark/{id}', MarkAsReadNotificationController::class)
+    ->middleware('auth', 'verified')
+    ->name('notification.mark');
+
+
+Route::post('/notifications/mark-all', MarkAllAsReadNotificationController::class)
+    ->middleware('auth', 'verified')
+    ->name('notification.mark.all');
+// FIM Notification Routes

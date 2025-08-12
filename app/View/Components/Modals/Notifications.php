@@ -22,6 +22,8 @@ class Notifications extends Component
         $this->user = User::findOrFail(Auth::user()->id);
         $this->notificationsFormated = $this->user->unreadNotifications
             ->map(fn($n) => [
+                'id' => $n->id,
+                'type' => $n->type,
                 'post_title' => $n->data['post_title'] ?? '',
                 'created_at' => $n->created_at,
             ]);

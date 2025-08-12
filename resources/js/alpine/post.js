@@ -44,8 +44,6 @@ export default () => ({
         } catch (error) {
             alert("ocorreu um erro atualize a pagina");
         } finally {
-            console.log("fechou modal");
-
             this.chatSetStatusUser('offline');
             Echo.leave(`chat.post.${this.post.postId}`);
         }
@@ -78,6 +76,13 @@ export default () => ({
             for (const field in errors) {
                 this.post.errors[field] = errors[field][0];
             }
+        }
+    },
+    async exitChatPost(id) {
+        try{
+            await axios.post("/user/post/" + id);
+        }catch(error){
+            console.log(error);
         }
     },
     async sendMessage(userId) {

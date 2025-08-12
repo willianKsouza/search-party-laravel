@@ -1,23 +1,30 @@
-<header
+<div>
+    <header
     x-data="menuMobile"
     class="relative block lg:hidden bg-white dark:bg-gray-900"
 >
     <x-container>
-        <nav class="flex justify-between items-center py-4 h-[70px]">
-            <div x-on:click="toggleMenu">
-                <x-icons.menu-mobile class="text-primary" />
-            </div>
-            <div>
-                <h2 class="font-bold text-primary">
-                    Welcome, {{ auth()->user()->user_name }}
-                </h2>
+        <nav
+            class="flex flex-col-reverse sm:flex-row justify-between items-center gap-4 py-4"
+        >
+            <div
+                class="w-full flex justify-between sm:justify-normal items-center gap-4"
+            >
+                <div x-on:click="toggleMenu">
+                    <x-icons.menu-mobile class="text-primary" />
+                </div>
+                <div>
+                    <h2 class="font-bold text-primary">
+                        Welcome, {{ auth()->user()->user_name }}
+                    </h2>
+                </div>
             </div>
             <div class="flex items-center gap-4">
                 <div
                     x-data="notifications"
                     x-init="notificationListener({{ auth()->user()->id }})"
                     x-on:click="toggleMenu"
-                    class="relative py-4 pl-2"
+                    class="hidden sm:flex items-center relative py-4 pl-2"
                 >
                     <span
                         class="absolute text-red-500 text-2xl font-bold top-0 right-0"
@@ -34,7 +41,7 @@
                     <img
                         src="{{ asset("img/logo.png") }}"
                         alt="Logo"
-                        class="size-[30px] w-full"
+                        class="size-[40px] w-full object-contain"
                     />
                 </a>
             </div>
@@ -42,9 +49,11 @@
                 x-cloak
                 x-transition
                 x-show="open"
-                class="absolute left-10 top-6 w-[150px] bg-primary p-4 rounded z-10"
+                class="absolute w-1/2 h-screen top-0 left-0 bg-background-modal p-4 rounded z-10"
             >
-                <ul class="relative *:font-bold space-y-2 *:py-2">
+                <ul
+                    class="relative *:font-bold space-y-2 *:py-2 *:text-primary"
+                >
                     <li class="flex justify-between items-center">
                         <a class="" href="{{ route("pages.home") }}">Home</a>
                         <x-icons.close
@@ -63,6 +72,11 @@
                         </a>
                     </li>
                     <li>
+                        <a class="" href="{{ route("pages.notifications") }}">
+                            Notifications
+                        </a>
+                    </li>
+                    <li>
                         <button>
                             <a class="" href="{{ route("auth.logout") }}">
                                 Logout
@@ -74,3 +88,5 @@
         </nav>
     </x-container>
 </header>
+
+</div>

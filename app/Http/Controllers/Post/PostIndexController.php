@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Post;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostIndexController extends Controller
 {
@@ -14,18 +15,22 @@ class PostIndexController extends Controller
     public function __invoke(Request $request, string $id)
     {
         $post = Post::where('id', $id)
-            ->select('id', 'title','body','created_at')
+            ->select('id', 'title', 'body', 'created_at')
             ->with('messages')
             ->with('categories')
-            ->with('participants')
+            ->with(['participants' => function ($query) {
+                $query->orderByRaw('CASE WHEN users.id = ? THEN 0 ELSE 1 END', [Auth::user()->id]);
+            }])
             ->get();
+
         if ($post) {
             return response()->json([
                 'post' => $post
             ]);
         }
+
         return response()->json([
             'error' => 'post nao encontrado'
-        ],404);
+        ], 404);
     }
 }

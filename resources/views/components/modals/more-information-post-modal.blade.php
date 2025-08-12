@@ -3,7 +3,7 @@
     x-show="post.showPostModal"
     x-transition
     x-on:click="closePostModal"
-    class="fixed inset-0 h-screen bg-black/60"
+    class="fixed inset-0 h-screen bg-black/50"
 >
     <x-container>
         <div
@@ -13,7 +13,7 @@
             <div
                 x-on:click.stop
                 x-transition
-                class="bg-white dark:bg-background rounded-lg shadow-lg w-[90%] md:w-[70%] h-[500px] flex flex-col pt-6 border border-primary/40"
+                class="bg-white dark:bg-background-modal rounded-lg shadow-lg w-[90%] md:w-[70%] h-[500px] flex flex-col pt-6 border border-primary/40"
             >
                 <div class="w-full px-6">
                     <div class="flex justify-between items-center mb-4">
@@ -21,12 +21,14 @@
                             x-text="post.data.title"
                             class="col-span-10 text-xl font-semibold text-primary"
                         ></h2>
-                        <button
-                            x-on:click="closePostModal"
-                            class="justify-self-end col-span-1 size-[30px] py-1 border border-primary/40 hover:bg-background-hover rounded-md text-primary hover:text-white flex justify-center items-center"
-                        >
-                            X
-                        </button>
+                        <div class="flex items-center gap-4">
+                            <button
+                                x-on:click="closePostModal"
+                                class="justify-self-end col-span-1 size-[30px] py-1 border border-primary/40 hover:bg-background-hover rounded-md text-primary hover:text-white flex justify-center items-center"
+                            >
+                                X
+                            </button>
+                        </div>
                     </div>
                     <p
                         x-text="post.data.body"
@@ -39,7 +41,6 @@
                             x-for="category in post.data.categories"
                             :key="category.id"
                         >
-                         {{-- :key="category.id + '-' + category.name" --}}
                             <x-breadcrumbs
                                 x-text="category.name"
                                 class="px-2 rounded-2xl border border-primary/40 text-primary hover:bg-background-hover hover:text-white"
@@ -95,7 +96,7 @@
                             x-init="observer"
                         >
                             <div class="flex flex-col gap-2">
-                                <template x-if="post?.data?.messages">
+                                <template x-if="post.data.messages">
                                     <template
                                         x-for="message in post.data.messages"
                                         :key="message.id"
@@ -106,7 +107,8 @@
                                         >
                                             <div
                                                 class="max-w-xs px-4 py-2 rounded-lg"
-                                                :class="message.user_id === currentUserId ? 'bg-orange-500/70 text-white' : 'bg-gray-200 border border-primary/40/10 text-gray-900'"
+                                                :class="message.user_id === currentUserId ? 'bg-orange-500/70 text-white' :
+                                                    'bg-gray-200 border border-primary/40/10 text-gray-900'"
                                             >
                                                 <span
                                                     x-text="message.message"
@@ -152,20 +154,35 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Lista de usuários -->
                     <div
                         class="border-t border-primary/40 col-span-2 overflow-y-auto scrollbar-custom h-full"
                     >
-                        <ul class="w-full text-end">
+                        <ul class="w-full">
                             <template
                                 x-for="participant in post.data.participants"
                                 :key="participant.id"
                             >
-                                <li
-                                    x-text="participant.user_name"
-                                    class="text-primary py-0.5 hover:bg-background-hover px-2"
-                                ></li>
+                                <div
+                                    class="relative flex items-center justify-end"
+                                >
+                                    <template
+                                        x-if="participant.id === {{ auth()->user()->id }}"
+                                    >
+                                        <form x-bind:action="'{{ route('post.exit', ['id' => 'id']) }}'.replace('id', post.postId)" method="post">
+                                            @csrf
+                                            <button
+                                                x-on:click="exitChatPost"
+                                                class="absolute left-2 top-0.5 py-0.5 px-2 border border-red-500 rounded-md text-red-500 hover:bg-red-500 hover:text-white"
+                                            >
+                                                Sair
+                                            </button>
+                                        </form>
+                                    </template>
+                                    <li
+                                        x-text="participant.user_name"
+                                        class="text-primary py-0.5 hover:bg-background-hover px-2"
+                                    ></li>
+                                </div>
                             </template>
                         </ul>
                     </div>

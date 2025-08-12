@@ -13,8 +13,7 @@
     --color-border: #ca3500;
     --color-background: #101828;
     --color-background-hover: color-mix(in oklab, #bb500c 30%, transparent);
-
-  
+    --color-background-modal: rgba(16, 22, 41, 0.95);
     
 }
 
