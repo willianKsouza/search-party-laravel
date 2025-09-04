@@ -3,23 +3,24 @@
     x-show="post.showPostModal"
     x-transition
     x-on:click="closePostModal"
-    class="fixed inset-0 h-screen bg-black/50"
+    class="fixed inset-0 h-screen bg-black/50 z-50"
 >
     <x-container>
         <div
+            x-data="chat()"
             x-show="!post.warning"
             class="h-screen flex justify-center items-center"
         >
             <div
                 x-on:click.stop
                 x-transition
-                class="bg-white dark:bg-background-modal rounded-lg shadow-lg w-[90%] md:w-[70%] h-[500px] flex flex-col pt-6 border border-primary/40"
+                class="relative w-2xl dark:bg-background-modal rounded-lg shadow-lg h-[500px] flex flex-col pt-6 border border-primary/40 overflow-x-auto"
             >
-                <div class="w-full px-6">
+                <div class="w-full px-4 sm:px-6">
                     <div class="flex justify-between items-center mb-4">
                         <h2
                             x-text="post.data.title"
-                            class="col-span-10 text-xl font-semibold text-primary"
+                            class="col-span-10 sm:text-xl font-semibold text-primary"
                         ></h2>
                         <div class="flex items-center gap-4">
                             <button
@@ -30,52 +31,111 @@
                             </button>
                         </div>
                     </div>
-                    <p
-                        x-text="post.data.body"
-                        class="text-gray-700 dark:text-gray-300"
-                    ></p>
+                    <div class="mt-2 flex justify-between items-center">
+                        <div>
+                            <button
+                                x-on:click="toggleDescription"
+                                class="text-xs text-primary/70 hover:text-primary flex items-center gap-1"
+                            >
+                                <span>Ver descrição</span>
+                                <x-icons.arrow
+                                    class="w-3 h-3 transition-transform"
+                                    x-bind:class="showDescription ? 'rotate-180' : ''"
+                                />
+                            </button>
+                            <p
+                                x-show="showDescription"
+                                x-transition
+                                x-text="post.data.body"
+                                class="text-sm text-gray-700 dark:text-gray-300 mt-2 p-2 rounded"
+                            ></p>
+                        </div>
+                        <div>
+                            <span
+                                x-on:click="toggleParticipants"
+                                class="relative flex items-center gap-x-2"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="text-primary"
+                                >
+                                    <path
+                                        d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+                                    />
+                                    <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                    <circle cx="9" cy="7" r="4" />
+                                </svg>
+                                <span
+                                    class="text-white"
+                                    x-text="post.data.participants.length"
+                                ></span>
+                            </span>
+                            <div
+                                x-show="showParticipants"
+                                x-transition
+                                class="absolute right-2 top-29 md:top-25 bg-white dark:bg-background-modal border border-primary/40 rounded-lg shadow-lg w-48 max-h-60 overflow-y-auto z-20 p-2"
+                            >
+                                <ul class="w-full">
+                                    <template
+                                        x-for="participant in post.data.participants"
+                                        :key="participant.id"
+                                    >
+                                        <div
+                                            class="relative flex items-center justify-end"
+                                        >
+                                            <template
+                                                x-if="participant.id === {{ auth()->user()->id }}"
+                                            >
+                                                <form
+                                                    x-bind:action="'{{ route("post.exit", ["id" => "id"]) }}'.replace('id', post.postId)"
+                                                    method="post"
+                                                >
+                                                    @csrf
+                                                    <button
+                                                        x-on:click="exitChatPost"
+                                                        class="absolute left-2 top-0.5 py-0.5 px-2 border border-red-500 rounded-md text-red-500 hover:bg-red-500 hover:text-white"
+                                                    >
+                                                        Sair
+                                                    </button>
+                                                </form>
+                                            </template>
+                                            <li
+                                                x-text="participant.user_name"
+                                                class="text-primary py-0.5 hover:bg-background-hover px-2"
+                                            ></li>
+                                        </div>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="px-6 py-2 flex items-center justify-between">
-                    <x-breadcrumbs class="flex items-center gap-2">
+                <div
+                    class="px-4 sm:px-6 py-2 flex items-center justify-between"
+                >
+                    <x-breadcrumbs mobile>
                         <template
                             x-for="category in post.data.categories"
-                            :key="category.id"
+                            :key="category.name + category.id"
                         >
-                            <x-breadcrumbs
+                            <x-breadcrumbs.item
                                 x-text="category.name"
-                                class="px-2 rounded-2xl border border-primary/40 text-primary hover:bg-background-hover hover:text-white"
-                            ></x-breadcrumbs>
+                            ></x-breadcrumbs.item>
                         </template>
                     </x-breadcrumbs>
-                    <span class="col-start-auto flex items-center gap-x-2">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="text-primary"
-                        >
-                            <path
-                                d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
-                            />
-                            <path d="M16 3.128a4 4 0 0 1 0 7.744" />
-                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                            <circle cx="9" cy="7" r="4" />
-                        </svg>
-                        <span
-                            class="text-white"
-                            x-text="post.data.participants.length"
-                        ></span>
-                    </span>
                 </div>
-                <div class="grid grid-cols-12 flex-1 overflow-hidden">
+                <div class="flex-1 overflow-hidden">
                     <div
-                        class="border-t border-r border-primary/40 col-span-10 h-full overflow-y-hidden scrollbar-custom flex gap-4 flex-col pl-4 pb-4"
+                        class="border-t border-r border-primary/40 h-full overflow-y-hidden scrollbar-custom flex gap-4 flex-col pl-2 sm:pl-4 pb-4"
                     >
                         <div
                             class="flex-1 overflow-y-auto px-4"
@@ -110,9 +170,21 @@
                                                 :class="message.user_id === currentUserId ? 'bg-orange-500/70 text-white' :
                                                     'bg-gray-200 border border-primary/40/10 text-gray-900'"
                                             >
-                                                <span
-                                                    x-text="message.message"
-                                                ></span>
+                                                <ul>
+                                                    <li
+                                                        class="text-xs italic text-black/60 font-bold flex justify-between gap-4"
+                                                    >
+                                                        <span
+                                                            x-text="message.user?.user_name ?? 'Usuário'"
+                                                        ></span>
+                                                        <span
+                                                            x-text="formatDate(message.created_at)"
+                                                        ></span>
+                                                    </li>
+                                                    <li
+                                                        x-text="message.message"
+                                                    ></li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </template>
@@ -127,7 +199,7 @@
                                     x-model="post.data.message"
                                     type="text"
                                     placeholder="Digite sua mensagem..."
-                                    class="text-primary flex-1 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary bg-gray-900 border border-primary/40"
+                                    class="text-primary grow px-1 sm:px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary bg-gray-900 border border-primary/40"
                                 />
                                 <button
                                     x-on:click="sendMessage({{ auth()->user()->id }})"
@@ -153,38 +225,6 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
-                    <div
-                        class="border-t border-primary/40 col-span-2 overflow-y-auto scrollbar-custom h-full"
-                    >
-                        <ul class="w-full">
-                            <template
-                                x-for="participant in post.data.participants"
-                                :key="participant.id"
-                            >
-                                <div
-                                    class="relative flex items-center justify-end"
-                                >
-                                    <template
-                                        x-if="participant.id === {{ auth()->user()->id }}"
-                                    >
-                                        <form x-bind:action="'{{ route('post.exit', ['id' => 'id']) }}'.replace('id', post.postId)" method="post">
-                                            @csrf
-                                            <button
-                                                x-on:click="exitChatPost"
-                                                class="absolute left-2 top-0.5 py-0.5 px-2 border border-red-500 rounded-md text-red-500 hover:bg-red-500 hover:text-white"
-                                            >
-                                                Sair
-                                            </button>
-                                        </form>
-                                    </template>
-                                    <li
-                                        x-text="participant.user_name"
-                                        class="text-primary py-0.5 hover:bg-background-hover px-2"
-                                    ></li>
-                                </div>
-                            </template>
-                        </ul>
                     </div>
                 </div>
             </div>

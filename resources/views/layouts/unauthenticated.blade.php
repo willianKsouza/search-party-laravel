@@ -17,7 +17,7 @@
             </nav>
         </x-container>
     </header>
-    <main class="h-full flex items-center">
+    <main class="w-full h-full">
         @yield('content')
     </main>
     @vite(['resources/js/app.js'])

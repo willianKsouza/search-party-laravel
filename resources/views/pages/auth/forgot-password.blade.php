@@ -29,7 +29,7 @@
                 />
             </div>
             @if (session("status"))
-                <x-form.error>{{ session("status") }}</x-form.error</x-form>
+                <x-form.success>{{ session("status") }}</x-form.success>
             @endif
 
             @if ($errors->has("email"))

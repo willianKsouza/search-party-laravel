@@ -5,6 +5,7 @@ export default () => ({
             title: "",
             body: "",
             categories: [],
+            categories_id: [],
             message: "",
             participants: [],
             messages: [],
@@ -23,14 +24,15 @@ export default () => ({
     async openPostModal(id) {
         try {
             const { post } = await this.getPostInfo(id);
-            this.chatListener(post[0].id);
-            this.chatPresenseListenner(post[0].id);
-            this.post.data.title = post[0].title;
-            this.post.data.body = post[0].body;
-            this.post.postId = post[0].id;
-            this.post.data.messages = post[0].messages;
-            this.post.data.participants = post[0].participants;
-            this.post.data.categories = post[0].categories;
+            console.log(post);
+            this.chatListener(post.id);
+            this.chatPresenseListenner(post.id);
+            this.post.data.title = post.title;
+            this.post.data.body = post.body;
+            this.post.postId = post.id;
+            this.post.data.messages = post.messages;
+            this.post.data.participants = post.participants;
+            this.post.data.categories = post.categories;
         } catch (error) {
             this.post.warning =
                 "Ocorreu um erro ao carregar o post, tente novamente";
@@ -44,7 +46,7 @@ export default () => ({
         } catch (error) {
             alert("ocorreu um erro atualize a pagina");
         } finally {
-            this.chatSetStatusUser('offline');
+            this.chatSetStatusUser("offline");
             Echo.leave(`chat.post.${this.post.postId}`);
         }
     },
@@ -53,17 +55,24 @@ export default () => ({
     },
     async createPost() {
         try {
-            await axios.post("/user/post", this.post.data);
+            await axios.post("/user/post", {
+                title: this.post.data.title,
+                body: this.post.data.body,
+                categories: this.post.data.categories_id,
+            });
 
             console.log(this.post.data);
 
             location.reload();
         } catch (error) {
+            console.log(error);
+
             const errors = error.response.data.errors;
             this.post.errors = {};
             for (const field in errors) {
                 this.post.errors[field] = errors[field][0];
             }
+            console.log(this.post.errors);
         }
     },
     async getPostInfo(id) {
@@ -79,14 +88,17 @@ export default () => ({
         }
     },
     async exitChatPost(id) {
-        try{
+        try {
             await axios.post("/user/post/" + id);
-        }catch(error){
+        } catch (error) {
             console.log(error);
         }
     },
     async sendMessage(userId) {
-        if (this.post.data.message.trim() === "" || this.post.data.message === null) {
+        if (
+            this.post.data.message.trim() === "" ||
+            this.post.data.message === null
+        ) {
             return;
         }
         let messageId;
@@ -136,15 +148,14 @@ export default () => ({
     chatPresenseListenner(postId) {
         window.Echo.join(`chat.post.${postId}`)
             .here((user) => {
-                console.log("here", user); 
-                this.chatSetStatusUser('online');
-                
+                console.log("here", user);
+                this.chatSetStatusUser("online");
             })
             .joining((user) => {
                 console.log("joining", user);
             })
             .leaving((user) => {
-                // this.chatSetStatusUser()
+                //
             })
             .error((error) => {
                 console.error("error fun", error);
@@ -153,5 +164,20 @@ export default () => ({
 
     async chatSetStatusUser(state) {
         await axios.post(`/chat/set/status/${state}/${this.post.postId}`);
+    },
+
+    formatDate(date) {
+        if (!date) return "";
+        let d = new Date(date);
+
+        return new Intl.DateTimeFormat("pt-BR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+        })
+            .format(d)
+            .replace(",", " às");
     },
 });

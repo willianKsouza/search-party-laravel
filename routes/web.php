@@ -107,7 +107,8 @@ Route::get('/user/post/{id}', PostIndexController::class)
     ->middleware('auth', 'verified');
 
 Route::post('/user/post', PostStoreController::class)
-    ->middleware('auth', 'verified');
+    ->middleware('auth', 'verified')
+    ->name('post.store');
 
 Route::post('/user/post/{id}', PostExitParticipantController::class)
     ->name('post.exit')

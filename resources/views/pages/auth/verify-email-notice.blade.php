@@ -1,12 +1,18 @@
-<h1>Verify Your Email Address</h1>
-<p>
-    A new verification link has been sent to your email address.
-</p>
-<p>
-    <form action="{{ route('verification.send') }}" method="POST">
-    @csrf
-       If you did not receive the email, please check your spam folder or
-    <button type="submit">click here</button> to request another verification link.
+@extends("layouts.unauthenticated")
+
+@section("content")
+    <x-container>
+        <div class="flex flex-col gap-4 justify-center items-center">
+            <h1 class="text-2xl font-bold text-primary">Verify Your Email Address</h1>
+    <p class="text-sm text-white">A new verification link has been sent to your email address.</p>
+    <form action="{{ route("verification.send") }}" method="POST">
+        @csrf
+        <p class="text-sm text-white">
+            se voce nao recebeu o email de confirmaçao clique no botao a baixo
+            <x-form.button type="submit" class="mt-4">click here</x-form.button>
+        </p>
     </form>
- 
-</p>
+        </div>
+    </x-container>
+
+@endsection

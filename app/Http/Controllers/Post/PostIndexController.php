@@ -16,12 +16,17 @@ class PostIndexController extends Controller
     {
         $post = Post::where('id', $id)
             ->select('id', 'title', 'body', 'created_at')
-            ->with('messages')
-            ->with('categories')
+            ->with([
+                'messages' => [
+                    'user:id,user_name'
+                ]
+            ])
+            ->with('categories:name')
             ->with(['participants' => function ($query) {
-                $query->orderByRaw('CASE WHEN users.id = ? THEN 0 ELSE 1 END', [Auth::user()->id]);
+                $query->select('users.id', 'users.user_name')
+                    ->orderByRaw('CASE WHEN users.id = ? THEN 0 ELSE 1 END', [Auth::user()->id]);
             }])
-            ->get();
+            ->first();
 
         if ($post) {
             return response()->json([

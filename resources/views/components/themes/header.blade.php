@@ -1,3 +1,11 @@
+@php
+    $showNewNotifications = auth()
+        ->user()
+        ?->unreadNotifications()
+        ->where("type", "new_notification")
+        ->whereNull("read_at")
+        ->exists();
+@endphp
 <header class="hidden lg:block bg-white dark:bg-gray-900">
     <x-container>
         <nav class="flex justify-between items-center py-4 h-[70px]">
@@ -46,11 +54,14 @@
                     x-on:click="toggleMenu"
                     class="relative py-4 pl-2"
                 >
-                    <span
-                        class="absolute text-red-500 text-2xl font-bold top-0 right-0"
-                    >
-                        !
-                    </span>
+                    @if ($showNewNotifications)
+                        <span
+                            class="absolute text-red-500 text-2xl font-bold top-0 right-0"
+                        >
+                            !
+                        </span>
+                    @endif
+
                     <x-icons.notification class="text-primary" />
                     <x-modals.notifications />
                 </div>

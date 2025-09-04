@@ -5,8 +5,8 @@ export default () => ({
         this.search = this.searchParams.get("search");
     },
     searchByTitle() {
-        console.log(this.search);
-        
+        this.searchParams.delete("page");
+
         if (this.search === "" || this.search === null) {
             this.searchParams.delete("search");
 
@@ -23,7 +23,8 @@ export default () => ({
         if (!slug) {
             return;
         }
-        this.searchParams = new URLSearchParams(window.location.search);
+        
+        this.searchParams.delete("page");
 
         const newParams = this.searchParams.get("category")?.split(",") ?? [];
 
@@ -55,7 +56,6 @@ export default () => ({
     },
     updateOrClearUrl(query) {
         const newUrl = `${window.location.pathname}?${query}`;
-        
         window.location.href = newUrl;
     },
 });

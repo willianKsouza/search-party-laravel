@@ -6,6 +6,7 @@ use App\Http\Requests\Post\PostSearchRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class HomeController extends Controller
@@ -39,13 +40,13 @@ class HomeController extends Controller
             $slug = $request->query('category');
 
             $array_slugs = explode(',', $slug);
-           
+
             $posts_query->OrWhereHas('categories', function (Builder $query) use ($slug) {
                 $query->WhereIn('slug', explode(',', $slug));
             });
         }
-        
-        $posts = $posts_query->get();
+
+        $posts = $posts_query->paginate(16);
 
         return view('pages.home', compact('categories', 'posts', 'array_slugs'))
             ->with('search', $search);
