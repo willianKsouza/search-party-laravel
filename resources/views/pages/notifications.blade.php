@@ -8,7 +8,7 @@
 
             <div class="flex items-center gap-1">
                 <a class="inline-block hover:bg-white/50 border border-primary text-primary rounded-full px-2" href="#">
-                    Marcar todas
+                    Mark all
                 </a>
             </div>
         </div>
@@ -16,22 +16,22 @@
             <template x-for="notification in notifications" :key="notification.id">
                 <li class="border-b border-primary">
                     <h2 class="whitespace-nowrap">
-                        Voce tem novas mensagens no post:
+                        You have new messages in the post:
                     </h2>
                     <h3 x-text="notification.post_title"></h3>
                     <a class="inline-block hover:bg-white/50 border border-primary rounded-full px-2 mt-2" href="#">
-                        Marcar como lida
+                        Mark as read
                     </a>
                 </li>
             </template>
             @foreach ($notificationsFormated as $notication)
                 <li class="{{ $loop->last ? '' : 'border-b border-primary' }}">
                     <h2 class="whitespace-nowrap text-primary">
-                        Voce tem novas mensagens no post:
+                        You have new messages in the post:
                     </h2>
                     <h3 class="text-primary">{{ $notication['post_title'] }}</h3>
                     <a class="inline-block hover:bg-white/50 text-white border border-primary rounded-full px-2 mt-2" href="#">
-                        Marcar como lida
+                        Mark as read
                     </a>
                 </li>
             @endforeach

@@ -20,12 +20,12 @@
                 <form action="{{ route('notification.mark.all') }}" method="post">
                       @csrf
                     <button
-                    type="submit"
-                    class="inline-block hover:bg-white/50 border border-primary text-primary rounded-full px-2"
-                    href="#"
-                >
-                    Marcar todas
-                </button>
+                        type="submit"
+                        class="inline-block hover:bg-white/50 border border-primary text-primary rounded-full px-2"
+                        href="#"
+                    >
+                        Mark all
+                    </button>
                 </form>
                 <x-icons.close
                     x-on:click.stop="toggleMenu"
@@ -43,17 +43,17 @@
             >
                 <li class="*:text-primary">
                     <h2 class="whitespace-nowrap">
-                        Você tem novas mensagens no post:
+                        You have new messages in the post:
                     </h2>
                     <h3 x-text="notification.post_title"></h3>
                     <form x-bind:action="'{{ route('notification.mark', ['id' => 'id' ]) }}'.replace('id', notification.id)" method="post">
                         @csrf
                         <button
-                        type="submit"
+                            type="submit"
                             class="inline-block hover:bg-background-hover !text-white border border-primary rounded-full px-2 mt-2"
                             href="#"
                         >
-                            Marcar como lida
+                            Mark as read
                         </button>
                     </form>
                 </li>
@@ -61,7 +61,7 @@
             @foreach ($notificationsFormated as $notication)
                 <li class="*:text-primary">
                     <h2 class="whitespace-nowrap">
-                        Voce tem novas mensagens no post:
+                        You have new messages in the post:
                     </h2>
                     <h3>{{ $notication["post_title"] }}</h3>
                     <form action="{{ route('notification.mark', ['id' => $notication["id"]]) }}" method="post">
@@ -71,7 +71,7 @@
                             class="inline-block hover:bg-background-hover !text-white border border-primary rounded-full px-2 mt-2"
                             href="#"
                         >
-                            Marcar como lida
+                            Mark as read
                         </button>
                     </form>
                 </li>

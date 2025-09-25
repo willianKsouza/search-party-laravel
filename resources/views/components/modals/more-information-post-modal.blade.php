@@ -37,7 +37,7 @@
                                 x-on:click="toggleDescription"
                                 class="text-xs text-primary/70 hover:text-primary flex items-center gap-1"
                             >
-                                <span>Ver descrição</span>
+                                <span>View description</span>
                                 <x-icons.arrow
                                     class="w-3 h-3 transition-transform"
                                     x-bind:class="showDescription ? 'rotate-180' : ''"
@@ -104,7 +104,7 @@
                                                         x-on:click="exitChatPost"
                                                         class="absolute left-2 top-0.5 py-0.5 px-2 border border-red-500 rounded-md text-red-500 hover:bg-red-500 hover:text-white"
                                                     >
-                                                        Sair
+                                                        Leave
                                                     </button>
                                                 </form>
                                             </template>
@@ -175,7 +175,7 @@
                                                         class="text-xs italic text-black/60 font-bold flex justify-between gap-4"
                                                     >
                                                         <span
-                                                            x-text="message.user?.user_name ?? 'Usuário'"
+                                                            x-text="message.user?.user_name ?? 'User'"
                                                         ></span>
                                                         <span
                                                             x-text="formatDate(message.created_at)"
@@ -198,7 +198,7 @@
                                     x-on:keyup.enter="sendMessage({{ auth()->user()->id }})"
                                     x-model="post.data.message"
                                     type="text"
-                                    placeholder="Digite sua mensagem..."
+                                    placeholder="Type your message..."
                                     class="text-primary grow px-1 sm:px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary bg-gray-900 border border-primary/40"
                                 />
                                 <button
@@ -233,7 +233,7 @@
             x-show="post.warning"
             class="mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg w-[90%] md:w-[70%] h-[500px] flex justify-center items-center"
         >
-            <h2 class="text-white">Ocorreu um erro</h2>
+            <h2 class="text-white">An error occurred</h2>
         </div>
     </x-container>
 </div>

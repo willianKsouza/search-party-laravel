@@ -9,12 +9,12 @@
         >
             @csrf
             <h2 class="text-2xl font-bold text-center text-orange-500">
-                Redefinir Senha
+                Reset Password
             </h2>
 
             <p class="text-sm text-gray-300 text-center">
-                Informe seu e-mail e enviaremos um link para redefinir sua
-                senha.
+                Enter your e-mail and we will send you a link to reset your
+                password.
             </p>
             <div>
                 <x-form.label for="email">Email</x-form.label>
@@ -41,7 +41,7 @@
                     type="submit"
                     class="w-full bg-primary text-white"
                 >
-                    Enviar Link de Redefinição
+                    Send Reset Link
                 </x-form.button>
             </div>
         </x-form>

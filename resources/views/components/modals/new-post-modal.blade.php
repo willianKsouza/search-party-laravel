@@ -1,31 +1,52 @@
-<div x-cloak x-show="post.showNewPostModal" x-transition x-on:click="toggleNewPostModal"
-    class="absolute inset-0 flex items-center justify-center h-screen bg-black/60 z-50">
-    <div x-on:click.stop x-transition
-        class="bg-white dark:bg-background-modal rounded-lg shadow-lg w-[90%] md:w-[70%] max-h-[90%] flex flex-col p-6 overflow-y-auto">
-        <h2 class="text-xl font-semibold mb-4 text-primary">Novo Post</h2>
+<div
+    x-cloak
+    x-show="post.showNewPostModal"
+    x-transition
+    x-on:click="toggleNewPostModal"
+    class="absolute inset-0 flex items-center justify-center h-screen bg-black/60 z-50"
+>
+    <div
+        x-on:click.stop
+        x-transition
+        class="bg-white dark:bg-background-modal rounded-lg shadow-lg w-[90%] md:w-[70%] max-h-[90%] flex flex-col p-6 overflow-y-auto"
+    >
+        <h2 class="text-xl font-semibold mb-4 text-primary">New Post</h2>
         <form class="space-y-6">
             @csrf
             <div>
-                <x-form.label for="title">Título</x-form.label>
-                <x-form.input x-model="post.data.title" type="text" id="title" name="title"
-                    placeholder="Digite o título do post" required />
+                <x-form.label for="title">Title</x-form.label>
+                <x-form.input
+                    x-model="post.data.title"
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="Enter the post title"
+                    required
+                />
                 <div>
-                    <x-form.error x-show="post.errors.title" x-text="post.errors.title" />
+                    <x-form.error
+                        x-show="post.errors.title"
+                        x-text="post.errors.title"
+                    />
                 </div>
             </div>
             <div>
-                <x-form.label for="body">
-                    Descrição
-                </x-form.label>
-                <x-form.text-area x-model="post.data.body" id="body" name="body" placeholder="Digite a descrição do post" rows="4"
-                    required></x-form.text-area>
+                <x-form.label for="body">Description</x-form.label>
+                <x-form.text-area
+                    x-model="post.data.body"
+                    id="body"
+                    name="body"
+                    placeholder="Enter the post description"
+                    rows="4"
+                    required
+                ></x-form.text-area>
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-200 mb-2">
-                    Categorias
+                    Categories
                 </label>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                     @foreach ($categories as $category)
+                    @foreach ($categories as $category)
                         <x-form.label
                             class="flex items-center space-x-2 border border-primary/40 px-3 py-2 rounded"
                         >
@@ -43,14 +64,22 @@
                     @endforeach
                 </div>
             </div>
+            <div>
+                <x-form.error
+                    x-show="post.errors.categories"
+                    x-text="post.errors.categories"
+                />
+            </div>
             <div class="flex justify-end gap-x-2 mt-4">
-                <x-form.button x-on:click.prevent="createPost()" type="submit"
-                   >
-                    Criar
+                <x-form.button x-on:click.prevent="createPost()" type="submit">
+                    Create
                 </x-form.button>
-                <button type="button" x-on:click="toggleNewPostModal"
-                    class="px-4 py-2 border border-red-700 hover:bg-red-900 rounded-md text-red-500 hover:text-white">
-                    Cancelar
+                <button
+                    type="button"
+                    x-on:click="toggleNewPostModal"
+                    class="px-4 py-2 border border-red-700 hover:bg-red-900 rounded-md text-red-500 hover:text-white"
+                >
+                    Cancel
                 </button>
             </div>
         </form>

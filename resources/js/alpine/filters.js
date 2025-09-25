@@ -1,6 +1,10 @@
 export default () => ({
     searchParams: new URLSearchParams(window.location.search),
     search: "",
+    showCategories: true,
+    toggleCategories() {
+        this.showCategories = !this.showCategories;
+    },
     init() {
         this.search = this.searchParams.get("search");
     },

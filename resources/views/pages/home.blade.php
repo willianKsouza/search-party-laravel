@@ -33,26 +33,41 @@
                     class="flex gap-2 whitespace-nowrap"
                 >
                     <x-icons.plus />
-                    Novo Post
+                    New Post
                 </x-form.button>
             </section>
-            <section class="py-4">
-                <x-breadcrumbs x-data="filters">
-                    <x-breadcrumbs.item
-                        x-on:click="updateOrClearUrl('')"
-                        class="px-4"
+            <section x-data="filters" class="py-4">
+                <div class="space-y-4
+                ">
+                    <button
+                        x-on:click="toggleCategories"
+                        class="text-xs text-primary/70 hover:text-primary flex items-center gap-1"
                     >
-                        All
-                    </x-breadcrumbs.item>
-                    @foreach ($categories as $category)
+                        <span>View Categories</span>
+                        <x-icons.arrow
+                            class="w-3 h-3 transition-transform"
+                            x-bind:class="showCategories ? 'rotate-180' : ''"
+                        />
+                    </button>
+                    <div x-show="showCategories" x-transition>
+                        <x-breadcrumbs >
                         <x-breadcrumbs.item
-                            class="{{ isset($array_slugs) && in_array($category->slug, $array_slugs) ? 'bg-background-hover' : '' }}"
-                            x-on:click="categoryFilter('{{ $category->slug }}')"
+                            x-on:click="updateOrClearUrl('')"
+                            class="px-4"
                         >
-                            {{ $category->name }}
+                            All
                         </x-breadcrumbs.item>
-                    @endforeach
-                </x-breadcrumbs>
+                        @foreach ($categories as $category)
+                            <x-breadcrumbs.item
+                                class="{{ isset($array_slugs) && in_array($category->slug, $array_slugs) ? 'bg-background-hover' : '' }}"
+                                x-on:click="categoryFilter('{{ $category->slug }}')"
+                            >
+                                {{ $category->name }}
+                            </x-breadcrumbs.item>
+                        @endforeach
+                    </x-breadcrumbs>
+                    </div>
+                </div>
             </section>
             <section>
                 <div
@@ -63,6 +78,7 @@
                             <x-card-post :post="$post" />
                         @endforeach
                     @endif
+
                     <x-modals.more-information-post-modal />
                     <x-modals.new-post-modal />
                 </div>

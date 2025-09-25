@@ -85,7 +85,7 @@
             @endif
             <div>
                  <a href="{{ route('login') }}" class="text-sm text-blue-400 hover:underline">
-                    Já possui conta?
+                    Already have an account?
                 </a>
             </div>
             <div>

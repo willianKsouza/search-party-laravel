@@ -4,6 +4,17 @@
         <div
             class="max-w-md mx-auto mt-10 bg-background shadow-lg rounded-lg p-8 space-y-6"
         >
+            @if (session("success"))
+                <div
+                    x-data="{ show: true }"
+                    x-show="show"
+                    x-init="setTimeout(() => (show = false), 4000)"
+                    class="text-green-500 bg-green-100 border border-green-300 rounded-md p-4"
+                >
+                    {{ session("success") }}
+                </div>
+            @endif
+
             <x-form
                 action="{{ route('user.update', ['id' => $user->id]) }}"
                 method="POST"
@@ -64,7 +75,7 @@
                         for="current_password"
                         class="block text-sm font-medium text-primary mb-1"
                     >
-                        Digite sua senha atual
+                        Enter your current password
                     </x-form.label>
                     <x-form.input
                         type="password"
@@ -75,7 +86,7 @@
                 </div>
                 <div>
                     <x-form.label for="new_password">
-                        Digite sua nova senha
+                        Enter your new password
                     </x-form.label>
                     <x-form.input
                         type="password"
@@ -86,7 +97,7 @@
                 </div>
                 <div>
                     <x-form.label for="new_password_confirmation">
-                        Confirme sua nova senha
+                        Confirm your new password
                     </x-form.label>
                     <x-form.input
                         type="password"

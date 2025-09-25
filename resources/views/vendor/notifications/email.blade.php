@@ -5,7 +5,7 @@
         <title>{{ $actionText ?? "Confirmação de E-mail" }}</title>
     </head>
     <body
-    //TODO preciso acabar de personalizar esse email e depois publicar o email de reset de senha
+    //TODO esse email sera um markdown é a unica maneira facil de ficar responsivo
         style="
             margin: 0;
             padding: 0;
@@ -35,7 +35,6 @@
                             padding: 40px;
                         "
                     >
-                        <!-- Header -->
                         <tr>
                             <td align="center" style="padding-bottom: 20px">
                                 <h2
@@ -50,8 +49,6 @@
                                 </h2>
                             </td>
                         </tr>
-
-                        <!-- Intro -->
                         <tr>
                             <td align="center" style="padding: 10px 0 20px 0">
                                 @foreach ($introLines as $line)
@@ -68,8 +65,6 @@
                                 @endforeach
                             </td>
                         </tr>
-
-                        <!-- Botão -->
                         @isset($actionText)
                             <tr>
                                 <td align="center" style="padding: 20px 0">
@@ -92,8 +87,6 @@
                                 </td>
                             </tr>
                         @endisset
-
-                        <!-- Outro -->
                         <tr>
                             <td align="center" style="padding-top: 20px">
                                 @foreach ($outroLines as $line)
@@ -110,8 +103,6 @@
                                 @endforeach
                             </td>
                         </tr>
-
-                        <!-- Saudação -->
                         <tr>
                             <td align="center" style="padding-top: 20px">
                                 <p
@@ -125,8 +116,6 @@
                                 </p>
                             </td>
                         </tr>
-
-                        <!-- Subcopy -->
                         @isset($actionText)
                             <tr>
                                 <td
@@ -167,8 +156,6 @@
                                 </td>
                             </tr>
                         @endisset
-
-                        <!-- Rodapé -->
                         <tr>
                             <td align="center" style="padding-top: 30px">
                                 <p

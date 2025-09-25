@@ -13,7 +13,6 @@
     <x-themes.header-mobile />
     
     @yield('content')
-    <x-themes.footer />
     @vite(['resources/js/app.js'])
 </body>
 </html>

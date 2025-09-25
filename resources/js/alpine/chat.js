@@ -7,5 +7,4 @@ export default () => ({
     toggleParticipants() {
         this.showParticipants = !this.showParticipants;
     },
-
 });

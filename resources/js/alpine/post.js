@@ -14,7 +14,7 @@ export default () => ({
             title: "",
             body: "",
             message: "",
-            categories: [],
+            categories: "",
         },
         postId: "",
         warning: "",
@@ -60,13 +60,8 @@ export default () => ({
                 body: this.post.data.body,
                 categories: this.post.data.categories_id,
             });
-
-            console.log(this.post.data);
-
             location.reload();
         } catch (error) {
-            console.log(error);
-
             const errors = error.response.data.errors;
             this.post.errors = {};
             for (const field in errors) {
@@ -151,15 +146,6 @@ export default () => ({
                 console.log("here", user);
                 this.chatSetStatusUser("online");
             })
-            .joining((user) => {
-                console.log("joining", user);
-            })
-            .leaving((user) => {
-                //
-            })
-            .error((error) => {
-                console.error("error fun", error);
-            });
     },
 
     async chatSetStatusUser(state) {

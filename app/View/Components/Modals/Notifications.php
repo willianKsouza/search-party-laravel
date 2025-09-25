@@ -26,8 +26,6 @@ class Notifications extends Component
 
         $this->unreadNotifications = $this->user->unreadNotifications;
 
-
-
         $this->notificationsFormated = $this->unreadNotifications
             ->map(fn($n) => [
                 'id' => $n->id,

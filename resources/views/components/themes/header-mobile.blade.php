@@ -6,10 +6,10 @@
         ->whereNull("read_at")
         ->exists();
 @endphp
-<div>
+<div class="sticky top-0 z-50">
     <header
         x-data="menuMobile"
-        class="relative block lg:hidden bg-white dark:bg-gray-900"
+        class="block lg:hidden bg-white dark:bg-gray-900"
     >
         <x-container>
             <nav

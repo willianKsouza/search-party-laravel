@@ -14,21 +14,21 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'Ação',
-            'Aventura',
-            'Plataforma',
+            'Action',
+            'Adventure',
+            'Platform',
             'FPS',
             'TPS',
             'RPG',
             'MMORPG',
             'RTS',
             'TBS',
-            'Simulação',
-            'Esporte',
-            'Corrida',
-            'Luta',
-            'Música/Ritmo',
-            'Puzzle/Quebra-cabeça',
+            'Simulation',
+            'Sports',
+            'Racing',
+            'Fighting',
+            'Music/Rhythm',
+            'Puzzle',
             'Horror/Survival Horror',
             'Stealth',
             'Sandbox/Open World',
@@ -41,8 +41,9 @@ class CategorySeeder extends Seeder
             'AR'
         ];
 
+
         $data = [];
-        
+
         foreach ($categories as $category) {
             $data[] = [
                 'name' => $category,
