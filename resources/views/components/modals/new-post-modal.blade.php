@@ -45,10 +45,10 @@
                 <label class="block text-sm font-medium text-gray-200 mb-2">
                     Categories
                 </label>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div class="grid grid-cols-2 gap-2">
                     @foreach ($categories as $category)
                         <x-form.label
-                            class="flex items-center space-x-2 border border-primary/40 px-3 py-2 rounded"
+                            class="flex items-center space-x-2 border border-primary/40  px-0.5 py-2 rounded"
                         >
                             <input
                                 x-model="post.data.categories_id"
@@ -57,7 +57,7 @@
                                 value="{{ $category->id }}"
                                 class="rounded text-primary focus:ring-primary"
                             />
-                            <span class="text-primary">
+                            <span class="text-primary text-xs">
                                 {{ $category->name }}
                             </span>
                         </x-form.label>
