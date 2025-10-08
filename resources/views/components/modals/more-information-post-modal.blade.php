@@ -37,7 +37,9 @@
                                 x-on:click="toggleDescription"
                                 class="text-xs text-primary/70 hover:text-primary flex items-center gap-1"
                             >
-                                <span>View description</span>
+                                <span>
+                                    {{ __("components.more_information_post_modal.labels.description") }}
+                                </span>
                                 <x-icons.arrow
                                     class="w-3 h-3 transition-transform"
                                     x-bind:class="showDescription ? 'rotate-180' : ''"
@@ -104,7 +106,7 @@
                                                         x-on:click="exitChatPost"
                                                         class="absolute left-2 top-0.5 py-0.5 px-2 border border-red-500 rounded-md text-red-500 hover:bg-red-500 hover:text-white"
                                                     >
-                                                        Leave
+                                                        {{ __("components.more_information_post_modal.buttons.leave") }}
                                                     </button>
                                                 </form>
                                             </template>
@@ -198,7 +200,7 @@
                                     x-on:keyup.enter="sendMessage({{ auth()->user()->id }})"
                                     x-model="post.data.message"
                                     type="text"
-                                    placeholder="Type your message..."
+                                    placeholder="{{ __("components.more_information_post_modal.placeholder") }}"
                                     class="text-primary grow px-1 sm:px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary bg-gray-900 border border-primary/40"
                                 />
                                 <button
@@ -233,7 +235,9 @@
             x-show="post.warning"
             class="mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg w-[90%] md:w-[70%] h-[500px] flex justify-center items-center"
         >
-            <h2 class="text-white">An error occurred</h2>
+            <h2 class="text-white">
+                {{ __("components.more_information_post_modal.error_message") }}
+            </h2>
         </div>
     </x-container>
 </div>

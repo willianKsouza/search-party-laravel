@@ -26,13 +26,14 @@
                     Profile
                 </h2>
                 <div>
-                    <x-form.label for="user_name">Username</x-form.label>
+                    <x-form.label for="user_name">
+                        {{ __("pages.my_profile.labels.user_name") }}
+                    </x-form.label>
                     <x-form.input
                         value="{{ $user->user_name ?? old('user_name') }}"
                         type="text"
                         id="user_name"
                         name="user_name"
-                        placeholder="Your username"
                     />
                     @error("user_name")
                         <x-form.error>
@@ -41,13 +42,14 @@
                     @enderror
                 </div>
                 <div>
-                    <x-form.label for="email">Email</x-form.label>
+                    <x-form.label for="email">
+                        {{ __("pages.my_profile.labels.email") }}
+                    </x-form.label>
                     <x-form.input
                         value="{{ $user->email ?? old('email') }}"
                         type="email"
                         id="email"
                         name="email"
-                        placeholder="you@example.com"
                     />
                     @error("email")
                         <x-form.error>
@@ -60,7 +62,7 @@
                         type="submit"
                         class="w-full bg-primary text-white"
                     >
-                        Change
+                        {{ __("pages.my_profile.buttons.change") }}
                     </x-form.button>
                 </div>
             </x-form>
@@ -75,7 +77,7 @@
                         for="current_password"
                         class="block text-sm font-medium text-primary mb-1"
                     >
-                        Enter your current password
+                        {{ __("pages.my_profile.labels.current_password") }}
                     </x-form.label>
                     <x-form.input
                         type="password"
@@ -86,7 +88,7 @@
                 </div>
                 <div>
                     <x-form.label for="new_password">
-                        Enter your new password
+                        {{ __("pages.my_profile.labels.new_password") }}
                     </x-form.label>
                     <x-form.input
                         type="password"
@@ -97,7 +99,7 @@
                 </div>
                 <div>
                     <x-form.label for="new_password_confirmation">
-                        Confirm your new password
+                        {{ __("pages.my_profile.labels.confirm_new_password") }}
                     </x-form.label>
                     <x-form.input
                         type="password"
@@ -131,7 +133,7 @@
                         type="submit"
                         class="w-full bg-primary text-white"
                     >
-                        Change Password
+                        {{ __("pages.my_profile.buttons.change_password") }}
                     </x-form.button>
                 </div>
             </x-form>

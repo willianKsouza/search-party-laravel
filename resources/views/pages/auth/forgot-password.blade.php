@@ -16,7 +16,7 @@
             </p>
             <div>
                 <x-form.label for="email">
-                    {{ __("pages.forgot_password.inputs.email") }}
+                    {{ __("pages.forgot_password.labels.email") }}
                 </x-form.label>
 
                 <x-form.input

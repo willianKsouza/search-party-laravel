@@ -1,6 +1,6 @@
 export default () => ({
    showParticipants: false,
-    showDescription: false,
+    showDescription: true,
     toggleDescription() {
         this.showDescription = !this.showDescription;
     },

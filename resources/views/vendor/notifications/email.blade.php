@@ -1,11 +1,45 @@
-<!DOCTYPE html>
+<x-mail::message>
+# {{ $greeting }} 
+
+
+
+
+<x-mail::button :url="$actionUrl" color="primary">
+{{ $actionText }}
+</x-mail::button>
+
+
+@foreach ($outroLines as $line)
+{{ $line }}
+
+@endforeach
+
+{{ $salutation ?? "Atenciosamente,\n" . config("app.name") }}
+
+@isset($actionText)
+---
+
+Se você tiver problemas para clicar no botão, copie e cole o link abaixo no navegador:
+
+[{{ $displayableActionUrl }}]({{ $actionUrl }})
+@endisset
+
+---
+
+© {{ date("Y") }} {{ config("app.name") }}. {{ __('passwords.mail.all_rights_reserved') }}.
+</x-mail::message>
+
+
+
+
+
+{{-- <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
         <meta charset="UTF-8" />
         <title>{{ $actionText ?? "Confirmação de E-mail" }}</title>
     </head>
     <body
-    //TODO esse email sera um markdown é a unica maneira facil de ficar responsivo
         style="
             margin: 0;
             padding: 0;
@@ -176,4 +210,5 @@
             </tr>
         </table>
     </body>
-</html>
+</html> --}}
+

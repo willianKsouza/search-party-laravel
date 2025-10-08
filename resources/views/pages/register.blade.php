@@ -12,7 +12,7 @@
             </h2>
 
             <x-form.label for="user_name">
-                {{ __("pages.register.inputs.user_name") }}
+                {{ __("pages.register.labels.user_name") }}
             </x-form.label>
             <x-form.input
                 value="{{ old('user_name') }}"
@@ -21,7 +21,7 @@
                 required
             />
             <x-form.label for="email">
-                {{ __("pages.register.inputs.email") }}
+                {{ __("pages.register.labels.email") }}
             </x-form.label>
             <x-form.input
                 value="{{ old('email') }}"
@@ -30,7 +30,7 @@
                 required
             />
             <x-form.label for="password">
-                {{ __("pages.register.inputs.password") }}
+                {{ __("pages.register.labels.password") }}
             </x-form.label>
             <x-form.input
                 name="password"
@@ -38,11 +38,11 @@
                 placeholder="*********"
                 required
             />
-            <x-form.label for="confirm_password">
-                {{ __("pages.register.inputs.confirm_password") }}
+            <x-form.label for="password_confirmation">
+                {{ __("pages.register.labels.confirm_password") }}
             </x-form.label>
             <x-form.input
-                name="confirm_password"
+                name="password_confirmation"
                 type="password"
                 placeholder="*********"
                 required

@@ -9,7 +9,7 @@
             @csrf
             <h2 class="text-2xl font-bold text-center text-primary">Login</h2>
             <x-form.label for="email">
-                {{ __("pages.login.inputs.email") }}
+                {{ __("pages.login.labels.email") }}
             </x-form.label>
             <x-form.input
                 value="{{ old('email') }}"
@@ -22,7 +22,7 @@
                 for="password"
                 class="block text-sm font-medium text-primary mb-1"
             >
-                {{ __("pages.login.inputs.password") }}
+                {{ __("pages.login.labels.password") }}
             </x-form.label>
             <x-form.input
                 type="password"
@@ -43,7 +43,7 @@
             <div class="flex">
                 <input type="checkbox" name="remember" class="h-4 w-4" />
                 <x-form.label for="remember" class="ml-2">
-                    {{ __("pages.login.inputs.remember") }}
+                    {{ __("pages.login.labels.remember") }}
                 </x-form.label>
             </div>
             <div class="flex flex-col gap-4">

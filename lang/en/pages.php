@@ -1,8 +1,8 @@
 <?php
-//TODO criar um arquivo page.php e categorizar pelo nome da pagina em vez de um arquivo por pagina
+
 return [
     'login' => [
-        'inputs' => [
+        'labels' => [
             'email' => 'Email',
             'password' => 'Password',
             'remember' => 'Remember me',
@@ -12,7 +12,7 @@ return [
         'log_in' => 'Log in',
     ],
     'register' => [
-        'inputs' => [
+        'labels' => [
             'user_name' => 'User Name',
             'email' => 'Email',
             'password' => 'Password',
@@ -22,7 +22,7 @@ return [
         'already_have_account' => 'Already have an account?',
     ],
     'forgot_password' => [
-        'inputs' => [
+        'labels' => [
             'email' => 'Email',
         ],
         'title' => 'Forgot Password',
@@ -33,6 +33,32 @@ return [
     'home' => [
         'add_post' => 'New Post',
         'all' => 'All',
+        'view_categories' => 'View Categories',
     ],
-
+    'my_posts' => [
+        'title' => 'My Posts'
+    ],
+    'my_profile' => [
+        'title' => 'Profile',
+        'labels' => [
+            'user_name' => 'User Name',
+            'email' => 'Email',
+            'current_password' => 'Enter your current password',
+            'new_password' => 'Enter your new password',
+            'confirm_new_password' => 'Confirm your new password'
+        ],
+        'buttons' => [
+            'change' => 'Change',
+            'change_password' => 'Change Password',
+        ]
+    ],
+    'notifications' => [
+        'title' => 'My Posts'
+    ],
+    'verify_email_notice' => [
+        'title' => 'Verify Your Email Address',
+        'notice' => 'A new verification link has been sent to your email address.',
+        'warning' => 'If you did not receive the confirmation email, click the button below.',
+        'button' => 'Click Here'
+    ],
 ];

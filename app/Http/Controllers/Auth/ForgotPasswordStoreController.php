@@ -16,7 +16,7 @@ class ForgotPasswordStoreController extends Controller
     {
         $validated = $request->validated();
 
-        $status = Password::sendResetLink($validated);
+        Password::sendResetLink($validated);
 
         return back()->with('status', __('messages.password_reset_sent'));
     }

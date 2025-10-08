@@ -10,7 +10,7 @@
                     @csrf
                     <div class="mb-4">
                         <x-form.label for="email">Email</x-form.label>
-                        <x-form.input id="email" name="email" type="email" :value="old('email', $request->email)" required />
+                        <x-form.input id="email" name="email" type="email" :value="old('email')" required />
                     </div>
                     <div class="mb-4">
                         <x-form.label for="password">New Password</x-form.label>

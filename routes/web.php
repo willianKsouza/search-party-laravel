@@ -124,6 +124,7 @@ Route::post('/message/send/{id}', MessageStoreController::class)
 // Chat Routes
 Route::post('/chat/set/status/online/{post_id}', ChatSetOnlineStatusUserController::class)
     ->middleware('auth', 'verified');
+    
 Route::post('/chat/set/status/offline/{post_id}', ChatSetOfflineStatusUserController::class)
     ->middleware('auth', 'verified');
 // FIM Chat Routes

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\ResetPasswordNotification;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -59,4 +60,11 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->hasMany(Message::class);
     }
 
+
+    public function sendPasswordResetNotification($token): void
+    {
+        $url = config('app.url') . '/reset-password/token=' . $token;
+
+        $this->notify(new ResetPasswordNotification($url));
+    }
 }
