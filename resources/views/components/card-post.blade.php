@@ -18,7 +18,7 @@
         <x-form.button
             x-on:click="openPostModal({{ $post->id }})"
         >
-            View more
+            {{ __('components.more_information_post_modal.buttons.view_more') }}
         </x-form.button>
     </div>
 </div>

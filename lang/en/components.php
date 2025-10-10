@@ -28,6 +28,7 @@ return [
         ],
         'buttons' => [
             'leave' => 'Leave',
+            'view_more' => 'View More',
         ],
         'placeholder' => 'Type your message...',
         'error_message' => 'An error occurred'

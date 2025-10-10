@@ -23,7 +23,7 @@
                 @method("PUT")
                 @csrf
                 <h2 class="text-2xl font-bold text-center text-primary">
-                    Profile
+                    {{ __("pages.my_profile.title") }}
                 </h2>
                 <div>
                     <x-form.label for="user_name">

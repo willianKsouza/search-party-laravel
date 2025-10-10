@@ -33,7 +33,7 @@
                     class="flex gap-2 whitespace-nowrap"
                 >
                     <x-icons.plus />
-                    New Post
+                    {{  __("pages.home.add_post") }}
                 </x-form.button>
             </section>
             <section x-data="filters" class="py-4">
@@ -43,7 +43,7 @@
                         x-on:click="toggleCategories"
                         class="text-xs text-primary/70 hover:text-primary flex items-center gap-1"
                     >
-                        <span>View Categories</span>
+                        <span>{{ __("pages.home.view_categories") }}</span>
                         <x-icons.arrow
                             class="w-3 h-3 transition-transform"
                             x-bind:class="showCategories ? 'rotate-180' : ''"

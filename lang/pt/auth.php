@@ -2,28 +2,18 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Authentication Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used during authentication for various
-    | messages that we need to display to the user. You are free to modify
-    | these language lines according to your application's requirements.
-    |
-    */
 
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'Essas credenciais não correspondem aos nossos registros.',
+    'password' => 'A senha fornecida está incorreta.',
+    'throttle' => 'Muitas tentativas de login. Por favor, tente novamente em :seconds segundos.',
     'mail' => [
-        'title'   => 'Verify Email Address',
-        'intro'   => 'Please click the button below to verify your email address.',
-        'action_button'  => 'Verify Email',
-        'line1' => 'If you did not create an account, no further action is required.',
-        'salutation' => 'Regards, :app_name Team',
-        'copy_and_paste' => 'If you’re having trouble clicking the button, copy and paste the link below into your browser:',
-        'all_rights_reserved' => 'All rights reserved'
+        'title'   => 'Verificar Endereço de E-mail',
+        'intro'   => 'Por favor, clique no botão abaixo para verificar seu endereço de e-mail.',
+        'action_button'  => 'Verificar E-mail',
+        'line1' => 'Se você não criou uma conta, nenhuma ação adicional é necessária.',
+        'salutation' => 'Atenciosamente, equipe :app_name',
+        'copy_and_paste' => 'Se você estiver tendo problemas para clicar no botão, copie e cole o link abaixo no seu navegador:',
+        'all_rights_reserved' => 'Todos os direitos reservados'
     ]
 
 ];
