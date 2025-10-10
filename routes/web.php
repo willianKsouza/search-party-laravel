@@ -16,6 +16,7 @@ use App\Http\Controllers\Auth\VerifyEmailNoticePageController;
 use App\Http\Controllers\Chat\ChatSetOfflineStatusUserController;
 use App\Http\Controllers\Chat\ChatSetOnlineStatusUserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\Message\MessageStoreController;
 use App\Http\Controllers\Notifications\MarkAllAsReadNotificationController;
 use App\Http\Controllers\Notifications\MarkAsReadNotificationController;
@@ -28,6 +29,8 @@ use App\Http\Controllers\User\ChangePasswordStoreController;
 use App\Http\Controllers\User\UserProfilePageController;
 use App\Http\Controllers\User\UserProfileUpdateController;
 
+
+Route::post('/language-switch', LanguageController::class)->name('language.switch');
 
 Route::get('/', HomeController::class)
     ->middleware('auth', 'verified')

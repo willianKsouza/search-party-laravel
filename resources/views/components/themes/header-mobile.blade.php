@@ -99,6 +99,9 @@
                                 </a>
                             </button>
                         </li>
+                        <li>
+                            <x-lang-switcher />
+                        </li>
                     </ul>
                 </div>
             </nav>

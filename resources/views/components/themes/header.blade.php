@@ -47,7 +47,7 @@
                     </a>
                 </li>
             </ul>
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-4 mr-2">
                 <div
                     x-data="notifications"
                     x-init="notificationListener({{ auth()->user()->id }})"
@@ -77,6 +77,7 @@
                     </a>
                 </button>
             </div>
+                <x-lang-switcher />
         </nav>
     </x-container>
     <div class="border-b border-primary/50"></div>

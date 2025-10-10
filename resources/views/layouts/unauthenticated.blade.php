@@ -10,11 +10,14 @@
 <body class="bg-[#1b2a36] flex flex-col h-screen">
     <header class="bg-white dark:bg-gray-900">
         <x-container>
-            <nav class="flex justify-center items-center py-4">
+            <nav class="flex justify-between items-center py-4">
+                <div></div>
                 <a href="{{ route('pages.home') }}" class="flex items-center gap-2">
                     <img src="{{ asset('img/logo.png') }}" alt="Logo" class="size-[40px] w-full">
                 </a>
+                <x-lang-switcher />
             </nav>
+            
         </x-container>
     </header>
     <main class="w-full h-full">
