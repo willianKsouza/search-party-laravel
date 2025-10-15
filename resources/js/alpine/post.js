@@ -16,10 +16,16 @@ export default () => ({
             message: "",
             categories: "",
         },
+        userPostId:"",
         postId: "",
         warning: "",
+        edit: false,
         showNewPostModal: false,
         showPostModal: false,
+        showDeletePostDialog: false,
+    },
+    changeEditState() {
+        this.post.edit = !this.post.edit;
     },
     async openPostModal(id) {
         try {
@@ -33,6 +39,7 @@ export default () => ({
             this.post.data.messages = post.messages;
             this.post.data.participants = post.participants;
             this.post.data.categories = post.categories;
+            this.post.userPostId = post.user_id
         } catch (error) {
             this.post.warning =
                 "Ocorreu um erro ao carregar o post, tente novamente";
@@ -69,6 +76,24 @@ export default () => ({
             }
             console.log(this.post.errors);
         }
+    },
+    async updatePost(event) {
+        event.preventDefault();
+
+        await axios
+            .put("/user/post/" + this.post.postId, {
+                [Object.keys(event.target.dataset)[0]]: event.target.value,
+            })
+            .then((response) => {
+                if (response.status == "204") {
+                    this.post.data[Object.keys(event.target.dataset)[0]] =
+                        event.target.value;
+                }
+            });
+    },
+    async showDeletePostDialog(event) {
+        event.preventDefault();
+        this.post.showDeletePostDialog = !this.post.showDeletePostDialog;
     },
     async getPostInfo(id) {
         try {
@@ -141,11 +166,10 @@ export default () => ({
         );
     },
     chatPresenseListenner(postId) {
-        window.Echo.join(`chat.post.${postId}`)
-            .here((user) => {
-                console.log("here", user);
-                this.chatSetStatusUser("online");
-            })
+        window.Echo.join(`chat.post.${postId}`).here((user) => {
+            console.log("here", user);
+            this.chatSetStatusUser("online");
+        });
     },
 
     async chatSetStatusUser(state) {

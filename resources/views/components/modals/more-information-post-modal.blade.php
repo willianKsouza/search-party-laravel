@@ -18,10 +18,22 @@
             >
                 <div class="w-full px-4 sm:px-6">
                     <div class="flex justify-between items-center mb-4">
-                        <h2
-                            x-text="post.data.title"
-                            class="col-span-10 sm:text-xl font-semibold text-primary"
-                        ></h2>
+                        <div>
+                            <h2
+                                x-text="post.data.title"
+                                x-show="!post.edit"
+                                class="col-span-10 sm:text-xl font-semibold text-primary"
+                            ></h2>
+                            <x-form x-show="post.edit">
+                                @csrf
+                                <x-form.input
+                                    data-title="title"
+                                    x-bind:value="post.data.title"
+                                    x-on:change="updatePost"
+                                    type="text"
+                                ></x-form.input>
+                            </x-form>
+                        </div>
                         <div class="flex items-center gap-4">
                             <button
                                 x-on:click="closePostModal"
@@ -51,6 +63,15 @@
                                 x-text="post.data.body"
                                 class="text-sm text-gray-700 dark:text-gray-300 mt-2 p-2 rounded"
                             ></p>
+                            <x-form x-show="post.edit">
+                                @csrf
+                                <x-form.input
+                                    data-body="body"
+                                    x-bind:value="post.data.body"
+                                    x-on:change="updatePost"
+                                    type="text"
+                                ></x-form.input>
+                            </x-form>
                         </div>
                         <div>
                             <span
@@ -122,7 +143,7 @@
                     </div>
                 </div>
                 <div
-                    class="px-4 sm:px-6 py-2 flex items-center justify-between"
+                    class="px-4 sm:px-6 py-2 flex flex-wrap items-center justify-between gap-y-4"
                 >
                     <x-breadcrumbs mobile>
                         <template
@@ -134,6 +155,47 @@
                             ></x-breadcrumbs.item>
                         </template>
                     </x-breadcrumbs>
+                    <template
+                        x-if="post.userPostId === {{ auth()->user()->id }}"
+                    >
+                        <div
+                            x-show="!post.showDeletePostDialog"
+                            class="w-full flex justify-end gap-4"
+                        >
+                            <x-form.button
+                                class="border-red-700 hover:bg-red-900 text-red-500 hover:text-white"
+                                x-on:click="showDeletePostDialog"
+                            >
+                                Destroy
+                            </x-form.button>
+                            <x-form.button
+                                x-bind:class="post.edit ? 'bg-background-hover' : ''"
+                                x-on:click="changeEditState"
+                            >
+                                Edit
+                            </x-form.button>
+                        </div>
+                    </template>
+                    <div
+                        x-show="post.showDeletePostDialog"
+                        class="w-full flex flex-col justify-center gap-4"
+                    >
+                        <h2 class="text-primary">
+                            Você tem certeza que deseja deletar esse post?
+                        </h2>
+                        <x-form
+                            class="flex gap-4"
+                            x-bind:action="'{{ route('post.destroy', ['id' => 'id']) }}'.replace('id', post.postId)"
+                            method="post"
+                        >
+                            @method("DELETE")
+                            @csrf
+                            <x-form.button type="submit">Confirm</x-form.button>
+                            <x-form.button x-on:click="showDeletePostDialog">
+                                Cancel
+                            </x-form.button>
+                        </x-form>
+                    </div>
                 </div>
                 <div class="flex-1 overflow-hidden">
                     <div

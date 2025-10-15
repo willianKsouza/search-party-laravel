@@ -11,7 +11,7 @@
             </h2>
         </div>
         <p class="text-gray-700 dark:text-gray-300 mt-2">
-            {{ $post->title }}
+            {{ $post->body }}
         </p>
     </div>
     <div class="mt-4 flex justify-between">

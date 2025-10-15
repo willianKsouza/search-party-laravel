@@ -15,7 +15,7 @@ class PostIndexController extends Controller
     public function __invoke(Request $request, string $id)
     {
         $post = Post::where('id', $id)
-            ->select('id', 'title', 'body', 'created_at')
+            ->select('id', 'title', 'body', 'created_at', 'user_id')
             ->with([
                 'messages' => [
                     'user:id,user_name'

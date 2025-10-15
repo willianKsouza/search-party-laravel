@@ -7,7 +7,7 @@ return [
         'navbar' => [
             'home' => 'Home',
             'my_posts' => 'My Posts',
-            'my_profile' => 'My Profile',
+            'my_profile' => 'Profile',
         ]
     ],
     'new_post_modal' => [

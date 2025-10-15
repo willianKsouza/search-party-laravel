@@ -21,15 +21,17 @@ use App\Http\Controllers\Message\MessageStoreController;
 use App\Http\Controllers\Notifications\MarkAllAsReadNotificationController;
 use App\Http\Controllers\Notifications\MarkAsReadNotificationController;
 use App\Http\Controllers\Notifications\NotificationsPageController;
+use App\Http\Controllers\Post\PostDeleteController;
 use App\Http\Controllers\Post\PostExitParticipantController;
 use App\Http\Controllers\Post\PostIndexController;
 use App\Http\Controllers\Post\PostPageController;
 use App\Http\Controllers\Post\PostStoreController;
+use App\Http\Controllers\Post\PostUpdateController;
 use App\Http\Controllers\User\ChangePasswordStoreController;
 use App\Http\Controllers\User\UserProfilePageController;
 use App\Http\Controllers\User\UserProfileUpdateController;
 
-
+//TODO fazer feature de uma grande maioria de votos do post ser excluido
 Route::post('/language-switch', LanguageController::class)->name('language.switch');
 
 Route::get('/', HomeController::class)
@@ -109,12 +111,19 @@ Route::get('/user/post', PostPageController::class)
 Route::get('/user/post/{id}', PostIndexController::class)
     ->middleware('auth', 'verified');
 
+Route::put('/user/post/{id}', PostUpdateController::class)
+    ->middleware('auth', 'verified');
+
 Route::post('/user/post', PostStoreController::class)
     ->middleware('auth', 'verified')
     ->name('post.store');
 
 Route::post('/user/post/{id}', PostExitParticipantController::class)
     ->name('post.exit')
+    ->middleware('auth', 'verified');
+
+Route::delete('/user/post/{id}', PostDeleteController::class)
+    ->name('post.destroy')
     ->middleware('auth', 'verified');
 // FIM User Post  Routes
 

@@ -6,6 +6,7 @@
         ->whereNull("read_at")
         ->exists();
 @endphp
+
 <header class="hidden lg:block bg-white dark:bg-gray-900">
     <x-container>
         <nav class="flex justify-between items-center py-4 h-[70px]">
@@ -27,7 +28,7 @@
                         class="md:px-1 lg:px-2 py-4"
                         href="{{ route("pages.home") }}"
                     >
-                        Home
+                        {{ __("components.header.navbar.home") }}
                     </a>
                 </li>
                 <li>
@@ -35,7 +36,7 @@
                         class="md:px-1 lg:px-2 py-4"
                         href="{{ route("pages.post") }}"
                     >
-                        My Posts
+                        {{ __("components.header.navbar.my_posts") }}
                     </a>
                 </li>
                 <li>
@@ -43,7 +44,7 @@
                         class="md:px-1 lg:px-2 py-4"
                         href="{{ route("pages.profile") }}"
                     >
-                        My Profile
+                        {{ __("components.header.navbar.my_profile") }}
                     </a>
                 </li>
             </ul>
@@ -66,18 +67,19 @@
                     <x-modals.notifications />
                 </div>
                 <h2 class="font-bold text-primary">
-                    Welcome, {{ auth()->user()->user_name }}
+                    {{ __("components.header.user") }}
+                    {{ auth()->user()->user_name }}
                 </h2>
                 <button>
                     <a
                         class="px-2 py-4 text-primary font-semibold hover:text-white"
                         href="{{ route("auth.logout") }}"
                     >
-                        Logout
+                        {{ __("components.header.logout") }}
                     </a>
                 </button>
             </div>
-                <x-lang-switcher />
+            <x-lang-switcher />
         </nav>
     </x-container>
     <div class="border-b border-primary/50"></div>

@@ -46,7 +46,9 @@ class HomeController extends Controller
             });
         }
 
-        $posts = $posts_query->paginate(16);
+        $posts = $posts_query
+            ->orderBy('updated_at', 'desc')
+            ->paginate(16);
 
         return view('pages.home', compact('categories', 'posts', 'array_slugs'))
             ->with('search', $search);

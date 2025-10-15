@@ -2,12 +2,12 @@
 
 return [
     'header' => [
-        'user' => 'Bem-vindo,',
+        'user' => 'bem-vindo(a),',
         'logout' => 'Sair',
         'navbar' => [
             'home' => 'Início',
             'my_posts' => 'Meus Posts',
-            'my_profile' => 'Meu Perfil',
+            'my_profile' => 'Perfil',
         ],
     ],
     'new_post_modal' => [
